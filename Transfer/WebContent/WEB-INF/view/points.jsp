@@ -21,7 +21,7 @@
 		Βρίσκεται το ίδρυμα στην ίδια πόλη με αυτή της μονιμης κατοικίας του φοιτητή; (ΝΑΙ-1, ΟΧΙ-0)
 		<input type="number" name="town">
 		</br></br> 
-		<input type="submit" name="points" value="Points" />
+		<input type="submit" name="score" value="Points" />
 		</br></br>
 		${points}
 		</br></br> 

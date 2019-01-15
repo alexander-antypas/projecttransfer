@@ -27,9 +27,6 @@ public class Application {
 	@Column(name="locality")
 	private Blob locality;
 
-	public Application() {
-		// TODO Auto-generated constructor stub
-	}
 
 	public Application(Date date_of_submission, String application_id, Blob family, Blob financially, Blob locality) {
 		super();

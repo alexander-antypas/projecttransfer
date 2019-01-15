@@ -8,9 +8,9 @@
 
            <!-- JDBC Database connection settings -->
            <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-           <property name="connection.url">jdbc:mysql://sql7.freesqldatabase.com/sql7269863?useSSL=false</property>
-           <property name="connection.username">sql7269863</property>
-           <property name="connection.password">9ZeYAX3eJf</property>
+           <property name="connection.url">jdbc:mysql://db4free.net:3306/transfer_1</property>
+           <property name="connection.username">it21672</property>
+           <property name="connection.password">hzyo3ag6</property>
 
            <!-- JDBC connection pool settings ... using built-in test pool -->
            <property name="connection.pool_size">1</property>

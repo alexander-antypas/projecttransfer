@@ -20,7 +20,6 @@ public class Admin {
 	}
 	
 	//йаталетягсг помтым жоитгтг
-	//jygfjfj
 	
 	public int points (int stdsibling, int numbersiblings, int income, int town) {
 		

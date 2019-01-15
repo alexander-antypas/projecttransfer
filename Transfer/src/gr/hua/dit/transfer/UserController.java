@@ -22,6 +22,11 @@ public class UserController {
 		return "signin";
 	}
 	
+	@RequestMapping("/application")
+	public String Application() {
+		return "application";
+	}
+	
 	@RequestMapping("/show")
 	public String Show() {
 		return "show";
@@ -56,6 +61,7 @@ public class UserController {
 	public String Points() {
 		return "points";
 	}
+	
 	
 	@RequestMapping("/documents")
 	public String Documents() {

@@ -6,19 +6,22 @@ import java.sql.DriverManager;
 public class Database {
 
 	public static void main(String[] args) {
-		String jdbcUrl = "jdbc:mysql://sql7.freesqldatabase.com/sql7269863?useSSL=false"; //alekos database
-        String user = "sql7269863";
-        String pass = "9ZeYAX3eJf";
-
-        try {
-                System.out.println("Connecting to database: " + jdbcUrl);
-                Connection con = DriverManager.getConnection(jdbcUrl, user, pass);
-                System.out.println("Connection success");
-
-        } catch (Exception e) {
-                e.printStackTrace();
-        }
+		 try {
+	            Class.forName("com.mysql.jdbc.Driver");
+	     } catch (ClassNotFoundException e) {
+	            System.out.println(" Unable to load driver. ");
+	     }
+		 String url = "jdbc:mysql://db4free.net:3306/transfer_1";
+	     String username = "it21672";
+	     String password = "hzyo3ag6";
+	     
+	     try {
+	    	 Connection conn = DriverManager.getConnection(url, username, password);
+	             System.out.println(" Connection Established. ");
+	        } catch (Exception e) {
+	            System.out.println(" Error connecting to database:  "
+	                    + e);
+	        }
 
 	}
-
 }
