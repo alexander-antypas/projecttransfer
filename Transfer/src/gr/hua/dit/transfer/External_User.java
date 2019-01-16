@@ -41,10 +41,6 @@ public class External_User {
 	@Column(name="current_semester")
 	private String current_semester;
 
-	public External_User() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public External_User(String id, String first_name, String last_name, String password, int year_of_birth, int age,
 			String email, String external_department, int year_of_enrollment, String current_semester) {
 		super();

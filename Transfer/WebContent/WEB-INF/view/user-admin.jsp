@@ -4,7 +4,13 @@
 <%@ page import="gr.hua.dit.transfer.Servlet" %>
 
 <div class=list>
-	<form action="applist" method="get">
-		<button type="submit">Άνοιγμα Αποθετήριου Αιτήσεων</button>
+	<form action="Servlet" method="POST">
+		<input type="submit" name="viewall" value="Repository"/>
+		<div>
+			</br>
+			<p>  </p>
+			</br></br>
+		</div>
+		
 	</form>
 </div>

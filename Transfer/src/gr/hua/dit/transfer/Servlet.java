@@ -3,8 +3,6 @@ package gr.hua.dit.transfer;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.mysql.cj.jdbc.Blob;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.apache.commons.io.IOUtils;
 
@@ -17,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-@MultipartConfig(maxFileSize=169999999)
+@MultipartConfig(maxFileSize=1699999999)
 @WebServlet("/Servlet")
 public class Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -82,29 +80,45 @@ public class Servlet extends HttpServlet {
 			SystemHelper sh = new SystemHelper();
 			String application_id = sh.application_id_generator();
 			
-			Part family = request.getPart("family");
-			InputStream is1 = family.getInputStream();
-			byte[] familyfile = IOUtils.toByteArray(is1);
+			byte[] familyfile=null;
+			byte[] financiallyfile=null;
+			byte[] localityfile=null;
 			
+			try {
+				Part family = request.getPart("family");
+				InputStream is1 = family.getInputStream();
+				familyfile = IOUtils.toByteArray(is1);
+				
+				Part financially = request.getPart("financially");
+				InputStream is2 = financially.getInputStream();
+				financiallyfile = IOUtils.toByteArray(is2);
+				
+				Part locality = request.getPart("locality");
+				InputStream is3 = locality.getInputStream();
+				localityfile = IOUtils.toByteArray(is3);
+				
+			}catch(IllegalStateException e){
+				System.out.print("FILE TO BIG!");
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+			}
 			
-			Part financially = request.getPart("financially");
-			InputStream is2 = financially.getInputStream();
-			byte[] financiallyfile = IOUtils.toByteArray(is2);
-			
-			Part locality = request.getPart("locality");
-			InputStream is3 = locality.getInputStream();
-			byte[] localityfile = IOUtils.toByteArray(is3);
-			
-						
-			
-			String result = CreateApplication.addApplication(date, application_id, familyfile, financiallyfile, localityfile);
+		    String result= DBApplication.addApplication(date, application_id, familyfile, financiallyfile, localityfile);
 			
 			HttpSession sess = request.getSession();
-			sess.setAttribute("result", result);
+			sess.setAttribute("result", result);	
 			request.getRequestDispatcher("/application").forward(request, response);
-			
-			
 		}
+		
+		//елжамисг окым тым аитгсеым апо тгм басг
+		
+		/*String viewall = request.getParameter("viewall");
+		
+		if("Repository".equals(viewall)) {
+			CreateApplication.showApplications();
+			request.getRequestDispatcher("/user-admin").forward(request, response);
+			
+			
+		} */
 
 	}
 

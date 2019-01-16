@@ -3,6 +3,7 @@ package gr.hua.dit.transfer;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
@@ -15,6 +16,7 @@ public class Application {
 	@Column(name="date_of_submission")
 	private Date date_of_submission;
 	
+	@Id
 	@Column(name="application_id")
 	private String application_id;
 	

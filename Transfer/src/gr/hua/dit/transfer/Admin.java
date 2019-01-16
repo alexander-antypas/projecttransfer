@@ -4,7 +4,7 @@ public class Admin {
 	
 	//екецвос циа тгм епаяйеиа тым дийаиокоцгтийым еццяажым
 
-	public static String documents (int number) {
+	public String documents (int number) {
 		String decision;
 		if (number<3) {
 			decision="INSUFFICIENT NUMBER OF DOCUMENTS";

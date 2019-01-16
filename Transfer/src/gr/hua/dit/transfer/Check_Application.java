@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +22,7 @@ public class Check_Application {
 	@Column(name="is_Approved")
 	private int is_Approved;
 	
+	@Id
 	@Column(name="check_id")
 	private String check_id;
 	
