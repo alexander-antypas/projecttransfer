@@ -1,20 +1,23 @@
 package gr.hua.dit.transfer;
 
 import java.io.IOException;
+import java.io.InputStream;
+
 import com.mysql.cj.jdbc.Blob;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.apache.commons.io.IOUtils;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
-/**
- * Servlet implementation class Servlet
- */
+@MultipartConfig(maxFileSize=169999999)
 @WebServlet("/Servlet")
 public class Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -68,21 +71,33 @@ public class Servlet extends HttpServlet {
 			request.getRequestDispatcher("/points").forward(request, response);
 		}
 		
-	/*		
+		
+		//–—œ”»« « ¡…‘«”«” ”‘«Õ ¬¡”«
 		String application = request.getParameter("application");
 		
 		if ("Submit".equals(application)) {
+			
 			Date date = new Date();
 			
 			SystemHelper sh = new SystemHelper();
 			String application_id = sh.application_id_generator();
 			
-			Blob family = request.getParameter("family");
-			Blob financially = request.getParameter("financially");
-			Blob locality = request.getParameter("locality");
+			Part family = request.getPart("family");
+			InputStream is1 = family.getInputStream();
+			byte[] familyfile = IOUtils.toByteArray(is1);
 			
-			CreateApplication app = new CreateApplication();
-			String result = app.addApplication(date, application_id, family, financially, locality);
+			
+			Part financially = request.getPart("financially");
+			InputStream is2 = financially.getInputStream();
+			byte[] financiallyfile = IOUtils.toByteArray(is2);
+			
+			Part locality = request.getPart("locality");
+			InputStream is3 = locality.getInputStream();
+			byte[] localityfile = IOUtils.toByteArray(is3);
+			
+						
+			
+			String result = CreateApplication.addApplication(date, application_id, familyfile, financiallyfile, localityfile);
 			
 			HttpSession sess = request.getSession();
 			sess.setAttribute("result", result);
@@ -90,7 +105,7 @@ public class Servlet extends HttpServlet {
 			
 			
 		}
-		*/
+
 	}
 
 }

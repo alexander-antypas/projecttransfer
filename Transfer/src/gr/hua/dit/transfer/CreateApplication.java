@@ -1,6 +1,5 @@
 package gr.hua.dit.transfer;
 
-import com.mysql.cj.jdbc.Blob;
 import java.util.Date;
 
 import org.hibernate.Session;
@@ -9,7 +8,7 @@ import org.hibernate.cfg.Configuration;
 
 public class CreateApplication {
 
-	public static String addApplication(Date date_of_submission, String application_id, Blob family, Blob financially, Blob locality) {
+	public static String addApplication(Date date_of_submission, String application_id, byte[] family, byte[] financially, byte[] locality) {
 		// create session factory
         SessionFactory factory = new Configuration().
                         configure("hibernate.cfg.xml")

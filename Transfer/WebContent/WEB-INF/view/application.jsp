@@ -2,20 +2,22 @@
 	pageEncoding="UTF-8"%>
 	
 	<div class ="list">
-		<form action="Servlet" method="get" >
+		<form action="Servlet" method="post" enctype="multipart/form-data" >
 			<h1>Αίτηση Μεταγγραφής</h1>
-			<label for="family">Πιστοποιητικό Οικογενειακής Κατάστασης</label><br /><br />
-			Select a file: <input type="file" name="family"><br /><br />
-			<label for="financially">Εκκαθαριστικό της τρέχουσας χρονιάς</label><br /><br />
-			Select a file: <input type="file" name="financially"><br /><br />
-			<label for="locality">Πιστοποιητικό μόνιμης Κατοικίας</label><br /><br />
-			Select a file: <input type="file" name="locality"><br /><br />
 			
-			<input type="submit" name="application" value="Submit"/>
 			
-			</br></br></br>
-			${result}
-			</br></br></br>
+					<h> Πιστοποιητικό Οικογειακής Κατάστασης <h><br /><br />
+					Select a file: <input type="file" name="family" size="50"><br /><br />
+					<h>Εκκαθαριστικό της τρέχουσας χρονιάς <h><br /><br />
+					Select a file: <input type="file" name="financially" size="50"><br /><br />
+					<h>Βεβαίωση μόνιμης Κατοικίας <h><br /><br />
+					Select a file: <input type="file" name="locality" size="50"><br /><br />
+
+					<input type="submit" name="application" value="Submit"/>
+			
+					</br></br></br>
+				    <h2><%=request.getAttribute("result")%></h2>
+					</br></br></br>
 		</form>
 		
 		

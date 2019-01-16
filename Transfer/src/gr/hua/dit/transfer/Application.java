@@ -3,9 +3,9 @@ package gr.hua.dit.transfer;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
-import com.mysql.cj.jdbc.Blob;
 
 @Entity
 @Table(name = "APPLICATION")
@@ -18,17 +18,20 @@ public class Application {
 	@Column(name="application_id")
 	private String application_id;
 	
+	@Lob	
 	@Column(name="family")
-	private Blob family;
+	private byte[] family;
 	
+	@Lob
 	@Column(name="financially")
-	private Blob financially;
+	private byte[] financially;
 	
+	@Lob
 	@Column(name="locality")
-	private Blob locality;
+	private byte[] locality;
 
 
-	public Application(Date date_of_submission, String application_id, Blob family, Blob financially, Blob locality) {
+	public Application(Date date_of_submission, String application_id, byte[] family, byte[] financially, byte[] locality) {
 		super();
 		this.date_of_submission = date_of_submission;
 		this.application_id = application_id;
@@ -53,27 +56,27 @@ public class Application {
 		this.application_id = application_id;
 	}
 
-	public Blob getFamily() {
+	public byte[] getFamily() {
 		return family;
 	}
 
-	public void setFamily(Blob family) {
+	public void setFamily(byte[] family) {
 		this.family = family;
 	}
 
-	public Blob getFinancially() {
+	public byte[] getFinancially() {
 		return financially;
 	}
 
-	public void setFinancially(Blob financially) {
+	public void setFinancially(byte[] financially) {
 		this.financially = financially;
 	}
 
-	public Blob getLocality() {
+	public byte[] getLocality() {
 		return locality;
 	}
 
-	public void setLocality(Blob locality) {
+	public void setLocality(byte[] locality) {
 		this.locality = locality;
 	}
 
