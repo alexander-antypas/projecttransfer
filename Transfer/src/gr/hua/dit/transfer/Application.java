@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "APPLICATION")
+@Table(name = "Application")
 
 public class Application {
 	
@@ -41,6 +41,12 @@ public class Application {
 		this.financially = financially;
 		this.locality = locality;
 	}
+	
+	
+
+	public Application() {}
+
+
 
 	public Date getDate_of_submission() {
 		return date_of_submission;

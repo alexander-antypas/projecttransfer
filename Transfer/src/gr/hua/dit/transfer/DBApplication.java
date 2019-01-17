@@ -52,7 +52,7 @@ public class DBApplication {
 	
 	//елжамисг окым тым аитгсеым апо тгм басг
 	
-	/*public static void showApplications(){
+	public static List<Application> showApplications(){
 		
 		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Application.class)
                 .buildSessionFactory();
@@ -63,16 +63,16 @@ public class DBApplication {
             // start a transaction
             session.beginTransaction();
 
-            // query students
-            List<Application> applications = session.createQuery("from APPLICATION").getResultList();
-
-
-            System.out.println(session.createQuery("from APPLICATION").getResultList());
-           
+            // query applications
+            List<Application> applications = session.createQuery("from Application").getResultList();
+            
+          
             // commit transaction
             session.getTransaction().commit();
 
             System.out.println("Done!");
+            
+    		return applications;
 
 	    } finally {
 	            factory.close();
@@ -80,13 +80,57 @@ public class DBApplication {
 
 	}
 	
-	*/
+	//елжамисг аитгсгс ле басг то USER_ID
 	
-	/*public Application displayApplications(List<Application> applications) {
-		 for (Application application : applications) {
-             return application;
-		 }
+	public static List<Application> openApplication(String appid){
+		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Application.class)
+                .buildSessionFactory();
+		
+		Session session = factory.getCurrentSession();
+		
+		
+		try {
+			// start a transaction
+            session.beginTransaction();
+            
+            //query application(s) with user_id
+            
+            String q = "Select * from Application where application_id=:appid";
+            List<Application> applications = session.createQuery(q).getResultList();
+            
+            // commit transaction
+            session.getTransaction().commit();
+
+            System.out.println("Done!");
+            
+    		return applications;
+            
+		} finally {
+			factory.close();
+		}
+		
+		
 	}
-	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
+	
+	

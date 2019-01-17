@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import java.util.Date;
+import java.util.List;
+
 import org.apache.commons.io.IOUtils;
 
 import javax.servlet.ServletException;
@@ -77,8 +79,7 @@ public class Servlet extends HttpServlet {
 			
 			Date date = new Date();
 			
-			SystemHelper sh = new SystemHelper();
-			String application_id = sh.application_id_generator();
+			String application_id = request.getParameter("userid").toString();
 			
 			byte[] familyfile=null;
 			byte[] financiallyfile=null;
@@ -98,7 +99,7 @@ public class Servlet extends HttpServlet {
 				localityfile = IOUtils.toByteArray(is3);
 				
 			}catch(IllegalStateException e){
-				System.out.print("FILE TO BIG!");
+				System.out.print("FILE TOO BIG!");
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST);
 			}
 			
@@ -111,15 +112,37 @@ public class Servlet extends HttpServlet {
 		
 		//елжамисг окым тым аитгсеым апо тгм басг
 		
-		/*String viewall = request.getParameter("viewall");
+		String viewall = request.getParameter("viewall");
 		
 		if("Repository".equals(viewall)) {
-			CreateApplication.showApplications();
+			
+			List <Application> applications = DBApplication.showApplications();
+			
+			HttpSession sess = request.getSession();
+			sess.setAttribute("applications", applications);
 			request.getRequestDispatcher("/user-admin").forward(request, response);
-			
-			
-		} */
+		}
 
+		//елжамисг суцйейяилемгс аитгсгс ле басг то ID
+		
+		String openapp = request.getParameter("openapp");
+		
+		if ("Open".equals(openapp)) {
+			
+			String appid = request.getParameter("appid").toString();
+			
+			List <Application> applications = DBApplication.openApplication(appid);
+			
+			HttpSession sess = request.getSession();
+			sess.setAttribute("applications", applications);
+			request.getRequestDispatcher("/documents").forward(request, response);
+			
+		}
+		
+		
+		
+		
+		
 	}
 
 }
