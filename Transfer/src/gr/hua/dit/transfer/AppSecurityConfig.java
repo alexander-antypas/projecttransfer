@@ -37,8 +37,11 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers( "/help", "/about","/contact").permitAll()
+		.antMatchers( "/help", "/about","/contact","/access_denied","/signin").permitAll()
 		.antMatchers( "/application").hasRole("USER")
+		.antMatchers( "/informStudents","/overviewStudents","/overviewSystem","/secretary_menu","/Update_position","/updateSystem").hasRole("SECRETARIAT")
+		.antMatchers( "/admin").hasRole("ADMIN")
+		.antMatchers( "/documents","/points","/user-professor").hasRole("PROFESSOR")
 		.anyRequest()
 		.authenticated()
 		.and()

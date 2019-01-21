@@ -83,14 +83,9 @@ public class UserController {
 		return "contact";
 	}
 	
-	@RequestMapping("/user-admin")
+	@RequestMapping("/user-professor")
 	public String UserAdmin() {
-		return "user-admin";
-	}
-	
-	@RequestMapping("/applist")
-	public String AppList() {
-		return "applist";
+		return "user-professor";
 	}
 	
 	@RequestMapping("/points")
