@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-User ID: ${param.user_id}
-Password: ${param.password}
+
+<div id="content1">
+<h1>ACCESS DENIED</h1>
+</div>

@@ -6,30 +6,30 @@
 <form action="user-admin" method="get">
 	<button type="submit">Πίσω</button>
 </form>
-</br></br>
+<br/><br/>
 <div class= list>
-	</br></br></br>
+	<br/><br/><br/>
 	${param.appid}
-	<form action=Servlet" method="post">
+	<form action="Servlet" method="post">
 		<input type="submit" name="openapp" value="Open">
 			${applications}
-		</br></br>	
+		<br/><br/>	
 	</form>	
 	
-	<form action="Servlet" method="post">
-		<h> Καταγράψτε τον αριθμό των δικαιολογητικών: </h> 
-		</br></br>
+	<form action="${pageContext.request.contextPath}/authUser/Servlet" method="post">
+		<h2> Καταγράψτε τον αριθμό των δικαιολογητικών: </h2> 
+		<br/><br/>
 		<input name="documents" type="number">
 		<input type="submit" name="button" value="Submit">
-		</br></br>
+		<br/><br/>
 		${decision}
 	</form>
-	</br></br>
+	<br/><br/>
 	<button type="button">Έκριση</button>
 	<button type="button">Απόρριψη</button>
-	</br></br>
+	<br/><br/>
 	<form action="points" method="get">
 		<button type="submit">Καταμέτρηση Πόντων</button>	
 	</form>
-	</br>
+	<br/>
 </div>
