@@ -3,20 +3,19 @@
 
 	
 	<div class=update>
-	<form>
+	<form action="Servlet" method="post" enctype="multipart/form-data" >
   Infomatics:
-  <input type="text" name="infomatics"><br>
+  <input type="number" name="informatics"><br>
   Dietary:
-  <input type="text" name="dietary"><br>
+  <input type="number" name="health_science"><br>
   Geography:
-  <input type="text" name="geography"><br>
+  <input type="number" name="geography"><br>
   Home economics
-  <input type="text" name="homeeconomics"><br>
+  <input type="number" name="home_economics"><br>
+  
+  <input type="submit" name="Updateposi" value="Submit">
     </form>
 	
 	
-	<form action="overviewSystem" method="get">
-		<button type="submit">Update</button>
-	</form>
-	
+
 	</div>

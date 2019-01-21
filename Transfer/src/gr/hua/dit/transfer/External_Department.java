@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Exteral_Department")
+@Table(name = "External_Department")
 
 public class External_Department {
 	
@@ -16,12 +16,12 @@ public class External_Department {
 	private String name;
 	
 	@Column(name="is_Selected")
-	private String is_Selecter;
+	private String is_Selected;
 	
-	public External_Department(String name, String is_Selecter) {
+	public External_Department(String name, String is_Selected) {
 		super();
 		this.name = name;
-		this.is_Selecter = is_Selecter;
+		this.is_Selected = is_Selected;
 	}
 
 	public String getName() {
@@ -32,17 +32,17 @@ public class External_Department {
 		this.name = name;
 	}
 
-	public String getIs_Selecter() {
-		return is_Selecter;
+	public String getIs_Selected() {
+		return is_Selected;
 	}
 
-	public void setIs_Selecter(String is_Selecter) {
-		this.is_Selecter = is_Selecter;
+	public void setIs_Selected(String is_Selected) {
+		this.is_Selected = is_Selected;
 	}
 
 	@Override
 	public String toString() {
-		return "External_Department [name=" + name + ", is_Selecter=" + is_Selecter + "]";
+		return "External_Department [name=" + name + ", is_Selected=" + is_Selected + "]";
 	}
 	
 	
