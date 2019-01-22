@@ -48,7 +48,19 @@ header h1 {
 	padding: 10px;
 	margin-left: auto;
 	margin-right: auto;
-	width: 20%;
+	width: 40%;
+	display: none;
+}
+
+#content3 {
+	padding: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 40%;
+	display: none;
+}
+
+#forma {
 	display: none;
 }
 
@@ -101,6 +113,17 @@ ul {
 }
 
 input[type=text], select, textarea {
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	margin-top: 6px;
+	margin-bottom: 16px;
+	resize: vertical;
+}
+
+input[type=password], select, textarea {
 	width: 100%;
 	padding: 12px;
 	border: 1px solid #ccc;
@@ -234,8 +257,20 @@ footer {
 	function myFunction() {
 		var x = document.getElementById("content2");
 		var y = document.getElementById("content1");
+		var z = document.getElementById("forma");
 		x.style.display = "block";
 		y.style.display = "none";
+		z.style.display = "block";
+	}
+	function myFunction1() {
+		var x = document.getElementById("content3");
+		var y = document.getElementById("content2");
+		var w = document.getElementById("content1");
+		var z = document.getElementById("forma");
+		x.style.display = "block";
+		y.style.display = "none";
+		w.style.display = "none";
+		z.style.display = "block";
 	}
 </script>
 </head>
@@ -247,13 +282,13 @@ footer {
 				<header>
 					<br />
 					<center>
-						<h1 title="Library.gr">
-							<a id="title" href="">HUA TRANSFER</a>
+						<h1 title="ΣΥΣΤΗΜΑ ΜΕΤΕΓΓΡΑΦΩΝ">
+							<a id="title" href="definer">ΣΥΣΤΗΜΑ ΜΕΤΕΓΓΡΑΦΩΝ</a>
 						</h1>
 					</center>
 					<div class="bar">
 						<center>
-							<br /> <a href="signin">Αρχική</a> <a href="about">Σχετικά</a> <a
+							<br /> <a href="definer">Αρχική</a> <a href="about">Σχετικά</a> <a
 								href="help">Βοήθεια</a> <a href="contact">Επικοινωνία</a>
 							<sec:authorize access="isAuthenticated()">
 							    <a href="<c:url value="/logout" />">Logout</a>

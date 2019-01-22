@@ -13,9 +13,14 @@
 		http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/tx 
 		http://www.springframework.org/schema/tx/spring-tx.xsd">
-		
+
 	<context:component-scan
 		base-package="gr.hua.dit.transfer" />
+
+	<!-- application properties file -->
+	<context:property-placeholder
+		location="classpath:application.properties" />
+
 
 	<mvc:annotation-driven />
 

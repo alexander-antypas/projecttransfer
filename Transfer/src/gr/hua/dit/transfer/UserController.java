@@ -88,11 +88,6 @@ public class UserController {
 		return "user-professor";
 	}
 	
-	@RequestMapping("/applist")
-	public String AppList() {
-		return "applist";
-	}
-	
 	@RequestMapping("/points")
 	public String Points() {
 		return "points";
