@@ -36,6 +36,7 @@ public class Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+	
 	}
 
 	/**
@@ -66,8 +67,12 @@ public class Servlet extends HttpServlet {
 			
 			int points = admin.points(stdsibling, numbersiblings, income, town);
 			
+			
+			String appid = request.getParameter("appid").toString();
+						
 			HttpSession sess=request.getSession(); 
 			sess.setAttribute("points", points);
+			sess.setAttribute("appid", appid);
 			request.getRequestDispatcher("/points").forward(request, response);
 		}
 		
@@ -78,8 +83,8 @@ public class Servlet extends HttpServlet {
 		if ("Submit".equals(application)) {
 			
 			Date date = new Date();
-			
 			String application_id = request.getParameter("userid").toString();
+			int isChecked = 0;
 			
 			byte[] familyfile=null;
 			byte[] financiallyfile=null;
@@ -103,7 +108,7 @@ public class Servlet extends HttpServlet {
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST);
 			}
 			
-		    String result= DBApplication.addApplication(date, application_id, familyfile, financiallyfile, localityfile);
+		    String result= DBApplication.addApplication(date, application_id, isChecked, familyfile, financiallyfile, localityfile);
 			
 			HttpSession sess = request.getSession();
 			sess.setAttribute("result", result);	
@@ -120,10 +125,10 @@ public class Servlet extends HttpServlet {
 			
 			HttpSession sess = request.getSession();
 			sess.setAttribute("applications", applications);
-			request.getRequestDispatcher("/user-admin").forward(request, response);
+			request.getRequestDispatcher("/user-professor").forward(request, response);
 		}
-
-		//≈Ã÷¡Õ…”« ”’√ ≈ —…Ã≈Õ«” ¡…‘«”«” Ã≈ ¬¡”« ‘œ ID
+		
+		//≈Ã÷¡Õ…”« ”’√ ≈ —…Ã≈Õ«” ¡…‘«”«” Ã≈ ¬¡”« ‘œ ID	
 		
 		String openapp = request.getParameter("openapp");
 		
@@ -131,17 +136,48 @@ public class Servlet extends HttpServlet {
 			
 			String appid = request.getParameter("appid").toString();
 			
-			List <Application> applications = DBApplication.openApplication(appid);
-			
+			Application app = DBApplication.openApplication(appid);
+					
 			HttpSession sess = request.getSession();
-			sess.setAttribute("applications", applications);
+			sess.setAttribute("app", app);
 			request.getRequestDispatcher("/documents").forward(request, response);
-			
+					
 		}
 		
+		//≈√ —…”« ¡…‘«”«”
 		
+		String check = request.getParameter("check");
 		
+		if ("check".equals(check)) {
+			
+			Date date = new Date();
+			int is_Approved = Integer.parseInt(request.getParameter("is_Approved"));
+			int points = Integer.parseInt(request.getParameter("points"));
+			String check_id = request.getParameter("appid");
+			
+			String result = DBApplication.check_application(date, is_Approved, points, check_id);
+			
+			HttpSession sess = request.getSession();
+			sess.setAttribute("result", result);	
+			request.getRequestDispatcher("/points").forward(request, response);
+		}
 		
+		//¡–œ——…ÿ« ¡…‘«”«”
+		String declined = request.getParameter("declined");
+		if ("declined".equals(declined)) {
+			
+			Date date = new Date();
+			int is_Approved = Integer.parseInt(request.getParameter("is_Approved"));
+			int points = Integer.parseInt(request.getParameter("points"));
+			String check_id = request.getParameter("appid");
+			
+			String result = DBApplication.check_application(date, is_Approved, points, check_id);
+			
+			HttpSession sess = request.getSession();
+			sess.setAttribute("result", result);	
+			request.getRequestDispatcher("/user-professor").forward(request, response);
+		}
+	
 		
 	}
 
