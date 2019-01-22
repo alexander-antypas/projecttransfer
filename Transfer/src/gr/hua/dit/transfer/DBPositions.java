@@ -26,8 +26,8 @@ public class DBPositions {
         
         	
               
-        		
-                session.beginTransaction();
+        session.beginTransaction();
+               
                 
                 String D="UPDATE POSITIONS SET home_economics = :home_economics "+" ,informatics = :informatics "+" ,health_science = :health_science "+" ,geography = :geography";
                 

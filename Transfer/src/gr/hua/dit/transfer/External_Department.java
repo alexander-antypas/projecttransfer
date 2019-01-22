@@ -18,6 +18,12 @@ public class External_Department {
 	@Column(name="is_Selected")
 	private String is_Selected;
 	
+	
+	
+	public External_Department() {
+		
+	}
+
 	public External_Department(String name, String is_Selected) {
 		super();
 		this.name = name;
