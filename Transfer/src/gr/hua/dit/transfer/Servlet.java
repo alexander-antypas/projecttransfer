@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -194,5 +196,92 @@ public class Servlet extends HttpServlet {
 
 		}
 
+		
+		
+		//������ ������ ���� ����
+		String Updateposi = request.getParameter("Updateposi");
+		
+		if ("Submit".equals(Updateposi)) {
+			
+			
+			
+			int informatics =  Integer.parseInt(request.getParameter("informatics"));
+			int health_science =  Integer.parseInt(request.getParameter("health_science"));
+			int home_economics =  Integer.parseInt(request.getParameter("home_economics"));
+			int geography =  Integer.parseInt(request.getParameter("geography"));
+			
+		    DBPositions.addpositions(informatics,health_science,home_economics,geography);
+		    
+		   
+			request.getRequestDispatcher("/secretary_menu").forward(request, response);
+			
+			
+		}
+		
+		
+		//��������� ������ �������������
+        String SystemSub = request.getParameter("SystemSub");
+		
+		if ("Submit".equals(SystemSub)) {
+			
+			String checkboxValue1 = request.getParameter("opa");
+			String checkboxValue2 = request.getParameter("ekpa");
+			String checkboxValue3 = request.getParameter("unipi");
+		
+			if (checkboxValue1 != null) {
+				String name= "OPA"; 
+				int status= 1;
+				String sstatus=Integer.toString(status);
+				 DBExternal_Department.Update(name,sstatus);
+				} else{
+					
+					String name= "OPA"; 
+					int status= 0;
+					String sstatus=Integer.toString(status);
+					 DBExternal_Department.Update(name,sstatus);
+				}
+			
+			
+					
+			if (checkboxValue2 != null) {
+				String name= "EKPA"; 
+				int status= 1;
+				String sstatus=Integer.toString(status);
+				 DBExternal_Department.Update(name,sstatus);
+				}else{
+					
+					String name= "EKPA"; 
+					int status= 0;
+					String sstatus=Integer.toString(status);
+					 DBExternal_Department.Update(name,sstatus);
+				}
+			
+			
+			
+			if (checkboxValue3 != null) {
+				String name= "UNIPI"; 
+				int status= 1;
+				String sstatus=Integer.toString(status);
+				 DBExternal_Department.Update(name,sstatus);
+				}else{
+					String name= "UNIPI"; 
+					int status= 0;
+					String sstatus=Integer.toString(status);
+					DBExternal_Department.Update(name,sstatus);
+				}
+			
+			
+		
+			
+		   
+		    
+		   
+			request.getRequestDispatcher("/Update_position").forward(request, response);
+			
+			
+		}
+		
+		
+		
 	}
 }

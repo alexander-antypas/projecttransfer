@@ -1,11 +1,16 @@
 <div class="content">
 	<h1>Enable universities :</h1>
-	<form action="Update_position" method="get">
-		<input type="checkbox" name="opa" value="opa">opa<br>
-		<input type="checkbox" name="ekpa" value="ekpa">ekpa<br>
-		<input type="checkbox" name="unipi" value="unipi" checked>unipi<br><br>
+	<form action="Servlet" method="post" enctype="multipart/form-data">
+		<input type="checkbox" name="opa" value="opa">O.P.A<br>
+		<input type="checkbox" name="ekpa" value="ekpa">E.K.PA<br>
+		<input type="checkbox" name="unipi" value="unipi" checked>UNI.PI<br>
+		<input type="checkbox" name="uoa" value="uoa">U.O.A<br>
+		<input type="checkbox" name="teicrete" value="teicrete">T.E.I CRETE<br>
+		<input type="checkbox" name="agean" value="agean">AGEAN UNI.<br>
+		<input type="checkbox" name="apth" value="apth">A.P.TH<br>
+		<input type="checkbox" name="uth" value="uth">U.TH<br><br>
 		
-			<button>Update the system</button>
+			<input type="submit" name="SystemSub" value="Submit">
 		
 	</form>
 	<br />
