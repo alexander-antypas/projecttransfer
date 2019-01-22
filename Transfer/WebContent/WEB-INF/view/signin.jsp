@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ page import="gr.hua.dit.transfer.Servlet" %>
 
 <div id="content1">
 	<form:form action="${pageContext.request.contextPath}/authUser"
@@ -21,7 +22,7 @@
 	<button onclick="myFunction()">ΕΓΓΡΑΦΗ ΣΤΟ ΣΥΣΤΗΜΑ</button>
 </div>
 <div id="content2">
-	<form action="Servlet" method="post">
+	<form action="Servlet" method="POST" enctype="multipart/form-data">
 		<h1>ΕΓΓΡΑΦΗ ΣΤΟ ΣΥΣΤΗΜΑ</h1>
 		<label for="username">ΟΝΟΜΑ</label>
 		<br />
@@ -29,7 +30,7 @@
 		<br />
 		<label for="surname">ΕΠΩΝΥΜΟ</label>
 		<br />
-		<input type="text" id="surrname" name="surname" placeholder="ΕΠΩΝΥΜΟ">
+		<input type="text" id="surname" name="surname" placeholder="ΕΠΩΝΥΜΟ">
 		<br />
 		<label for="id">Α.Μ. ΧΡΗΣΤΗ</label>
 		<br /> 
@@ -58,9 +59,9 @@
 		<br />
 		<input type="text" id="email" name="email" placeholder="E-MAIL">
 		<br /> 
-		<label for="yoe">ΕΤΟΣ ΠΡΟΣΛΗΨΗΣ</label> 
+		<label for="yoe">ΕΤΟΣ ΕΓΓΡΑΦΗΣ ΣΤΟ ΠΑΝΕΠΙΣΤΗΜΙΟ</label> 
 		<br />
 		<input type="text" id="yoe" name="yoe" placeholder="ΕΤΟΣ ΠΡΟΣΛΗΨΗΣ">
-		<center><input type="submit" name="add_external" value="ΕΓΓΡΑΦΗ"></center>
+		<button name="add_external" type="submit" value="add">ΕΓΓΡΑΦΗ</button>
 	</form>
 </div>

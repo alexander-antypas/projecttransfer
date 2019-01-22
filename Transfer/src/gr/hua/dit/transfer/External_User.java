@@ -39,10 +39,10 @@ public class External_User {
 	private int year_of_enrollment;
 	
 	@Column(name="current_semester")
-	private String current_semester;
+	private int current_semester;
 
 	public External_User(String id, String first_name, String last_name, String password, int year_of_birth, int age,
-			String email, String external_department, int year_of_enrollment, String current_semester) {
+			String email, String external_department, int year_of_enrollment, int current_semester) {
 		super();
 		this.id = id;
 		this.first_name = first_name;
@@ -128,11 +128,11 @@ public class External_User {
 		this.year_of_enrollment = year_of_enrollment;
 	}
 
-	public String getCurrent_semester() {
+	public int getCurrent_semester() {
 		return current_semester;
 	}
 
-	public void setCurrent_semester(String current_semester) {
+	public void setCurrent_semester(int current_semester) {
 		this.current_semester = current_semester;
 	}
 

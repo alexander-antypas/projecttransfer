@@ -282,13 +282,13 @@ footer {
 				<header>
 					<br />
 					<center>
-						<h1 title="Library.gr">
-							<a id="title" href="">ΣΥΣΤΗΜΑ ΜΕΤΕΓΓΡΑΦΩΝ</a>
+						<h1 title="ΣΥΣΤΗΜΑ ΜΕΤΕΓΓΡΑΦΩΝ">
+							<a id="title" href="definer">ΣΥΣΤΗΜΑ ΜΕΤΕΓΓΡΑΦΩΝ</a>
 						</h1>
 					</center>
 					<div class="bar">
 						<center>
-							<br /> <a href="signin">Αρχική</a> <a href="about">Σχετικά</a> <a
+							<br /> <a href="definer">Αρχική</a> <a href="about">Σχετικά</a> <a
 								href="help">Βοήθεια</a> <a href="contact">Επικοινωνία</a>
 							<sec:authorize access="isAuthenticated()">
 							    <a href="<c:url value="/logout" />">Logout</a>

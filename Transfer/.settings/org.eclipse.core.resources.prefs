@@ -1,3 +1,5 @@
 eclipse.preferences.version=1
 encoding//WebContent/WEB-INF/jspf/footer.jspf=UTF-8
+encoding//src/gr/hua/dit/transfer/Servlet.java=UTF-8
 encoding//src/gr/hua/dit/transfer/UserController.java=UTF-8
+encoding//src/gr/hua/dit/transfer/UserService.java=UTF-8

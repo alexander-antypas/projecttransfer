@@ -48,8 +48,8 @@
 		<label for="role">ΕΙΔΙΚΟΤΗΤΑ</label> <br /> 
 		<select	id="role" name="role">
 			<option value="null"></option>
-			<option value="[ROLE_SECRETARIAT]">ΓΡΑΜΜΑΤΕΙΑ</option>
-			<option value="[ROLE_PROFESSOR]">ΚΑΘΗΓΗΤΗΣ</option>
+			<option value="ROLE_SECRETARIAT">ΓΡΑΜΜΑΤΕΙΑ</option>
+			<option value="ROLE_PROFESSOR">ΚΑΘΗΓΗΤΗΣ</option>
 		</select>
 		<label for="yoe">ΕΤΟΣ ΠΡΟΣΛΗΨΗΣ</label> 
 		<br />
@@ -63,20 +63,20 @@
 			<option value="hs">ΔΙΑΙΤΟΛΟΓΙΑΣ</option>
 			<option value="geo">ΓΕΩΓΡΑΦΙΑΣ</option>
 		</select>
-		<input	type="submit" name="save_user" value="ΚΑΤΑΧΩΡΗΣΗ ΧΡΗΣΤΗ">
+		<button type="submit" name="save_user" value="add_internal">ΚΑΤΑΧΩΡΗΣΗ ΧΡΗΣΤΗ</button>
 	</form>
 	<br />
-	<h2><%=request.getAttribute("result")%></h2>
 </div>
 
 <div id="content3">
 	<form action="Sevlet" method="get">
 		<label for="author">Α.Μ. ΧΡΗΣΤΗ</label> <br /> <input type="text"
-			id="user_id" name="username" placeholder="Α.Μ. ΧΡΗΣΤΗ"> <input
-			type="submit" name="search" value="ΑΝΑΖΗΤΗΣΗ"> <br /><br />
+			id="user_id" name="username" placeholder="Α.Μ. ΧΡΗΣΤΗ"> 
+			<button type="submit" name="search" value="search">ΑΝΑΖΗΤΗΣΗ</button>
+			<br /><br />
 	</form>
 	<br />
 	<form action="Servlet" method="get">
-	<input type="submit" name="show_users" value="ΕΜΦΑΝΙΣΗ ΛΙΣΤΑΣ ΧΡΗΣΤΩΝ">
+	<button type="submit" name="show_users" value="show_users">ΕΜΦΑΝΙΣΗ ΛΙΣΤΑΣ ΧΡΗΣΤΩΝ</button>
 	</form>
 </div>
