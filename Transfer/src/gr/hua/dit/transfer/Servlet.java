@@ -41,6 +41,7 @@ public class Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+	
 	}
 
 	/**
@@ -78,9 +79,15 @@ public class Servlet extends HttpServlet {
 			int town = Integer.parseInt(request.getParameter("town"));
 
 			int points = admin.points(stdsibling, numbersiblings, income, town);
+			
+			
+			String appid = request.getParameter("appid").toString();
+						
+			HttpSession sess=request.getSession(); 
 
 			HttpSession sess = request.getSession();
 			sess.setAttribute("points", points);
+			sess.setAttribute("appid", appid);
 			request.getRequestDispatcher("/points").forward(request, response);
 		}
 
@@ -92,6 +99,12 @@ public class Servlet extends HttpServlet {
 			Date date = new Date();
 
 			String application_id = request.getParameter("userid").toString();
+			int isChecked = 0;
+			
+			byte[] familyfile=null;
+			byte[] financiallyfile=null;
+			byte[] localityfile=null;
+			
 
 			byte[] familyfile = null;
 			byte[] financiallyfile = null;
@@ -114,6 +127,9 @@ public class Servlet extends HttpServlet {
 				System.out.print("FILE TOO BIG!");
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST);
 			}
+			
+		    String result= DBApplication.addApplication(date, application_id, isChecked, familyfile, financiallyfile, localityfile);
+			
 
 			String result = DBApplication.addApplication(date, application_id, familyfile, financiallyfile,
 					localityfile);
@@ -133,8 +149,11 @@ public class Servlet extends HttpServlet {
 
 			HttpSession sess = request.getSession();
 			sess.setAttribute("applications", applications);
-			request.getRequestDispatcher("/user-admin").forward(request, response);
+			request.getRequestDispatcher("/user-professor").forward(request, response);
 		}
+		
+		//�������� ������������� ������� �� ���� �� ID	
+		
 
 		// ÅÌÖÁÍÉÓÇ ÓÕÃÊÅÊÑÉÌÅÍÇÓ ÁÉÔÇÓÇÓ ÌÅ ÂÁÓÇ ÔÏ ID
 
@@ -143,12 +162,16 @@ public class Servlet extends HttpServlet {
 		if ("Open".equals(openapp)) {
 
 			String appid = request.getParameter("appid").toString();
+			
+			Application app = DBApplication.openApplication(appid);
+					
 
 			List<Application> applications = DBApplication.openApplication(appid);
 
 			HttpSession sess = request.getSession();
-			sess.setAttribute("applications", applications);
+			sess.setAttribute("app", app);
 			request.getRequestDispatcher("/documents").forward(request, response);
+					
 
 		}
 
@@ -248,10 +271,25 @@ public class Servlet extends HttpServlet {
 		
 	////alekosalekosalekosalekosalekosalekosalekosalekosalekosalekos
 		
+		//������� �������
 		
+		String check = request.getParameter("check");
 		//������ ������ ���� ����
 		String Updateposi = request.getParameter("Updateposi");
 		
+		if ("check".equals(check)) {
+			
+			Date date = new Date();
+			int is_Approved = Integer.parseInt(request.getParameter("is_Approved"));
+			int points = Integer.parseInt(request.getParameter("points"));
+			String check_id = request.getParameter("appid");
+			
+			String result = DBApplication.check_application(date, is_Approved, points, check_id);
+			
+			HttpSession sess = request.getSession();
+			sess.setAttribute("result", result);	
+			request.getRequestDispatcher("/points").forward(request, response);
+		}
 		if ("Submit".equals(Updateposi)) {
 			
 			
@@ -269,6 +307,22 @@ public class Servlet extends HttpServlet {
 			
 		}
 		
+		//�������� �������
+		String declined = request.getParameter("declined");
+		if ("declined".equals(declined)) {
+			
+			Date date = new Date();
+			int is_Approved = Integer.parseInt(request.getParameter("is_Approved"));
+			int points = Integer.parseInt(request.getParameter("points"));
+			String check_id = request.getParameter("appid");
+			
+			String result = DBApplication.check_application(date, is_Approved, points, check_id);
+			
+			HttpSession sess = request.getSession();
+			sess.setAttribute("result", result);	
+			request.getRequestDispatcher("/user-professor").forward(request, response);
+		}
+	
 		
 		//��������� ������ �������������
         String SystemSub = request.getParameter("SystemSub");

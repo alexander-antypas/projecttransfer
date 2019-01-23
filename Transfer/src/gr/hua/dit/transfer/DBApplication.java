@@ -10,7 +10,7 @@ import org.hibernate.cfg.Configuration;
 public class DBApplication {
 	
 	//–—œ”»« « ¡…‘«”≈ŸÕ ”‘«Õ ¬¡”«
-	public static String addApplication(Date date_of_submission, String application_id, byte[] family, byte[] financially, byte[] locality) {
+	public static String addApplication(Date date_of_submission, String application_id, int isChecked, byte[] family, byte[] financially, byte[] locality) {
 		// create session factory
         SessionFactory factory = new Configuration().
                         configure("hibernate.cfg.xml")
@@ -26,7 +26,7 @@ public class DBApplication {
         	
         	if (family!=null || financially!=null || locality!=null) {        		
         		// create the student object
-                Application application = new Application(date_of_submission, application_id, family, financially, locality);
+                Application application = new Application(date_of_submission, application_id, isChecked, family, financially, locality);
                  
                  // start a transaction
                  session.beginTransaction();
@@ -82,7 +82,7 @@ public class DBApplication {
 	
 	//≈Ã÷¡Õ…”« ¡…‘«”«” Ã≈ ¬¡”« ‘œ USER_ID
 	
-	public static List<Application> openApplication(String appid){
+	public static Application openApplication(String appid){
 		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Application.class)
                 .buildSessionFactory();
 		
@@ -95,41 +95,59 @@ public class DBApplication {
             
             //query application(s) with user_id
             
-            String q = "Select * from Application where application_id=:appid";
-            List<Application> applications = session.createQuery(q).getResultList();
+            Application app= session.get(Application.class,appid);
             
             // commit transaction
             session.getTransaction().commit();
 
             System.out.println("Done!");
             
-    		return applications;
+    		return app;
             
 		} finally {
 			factory.close();
-		}
-		
-		
+		}	
 	}
 	
+	//INSERT CHECK APPLICATION
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+			public static String check_application(Date date_of_check, int is_Approved, int points, String check_id) {
+				// create session factory
+		        SessionFactory factory = new Configuration().
+		                        configure("hibernate.cfg.xml")
+		                        .addAnnotatedClass(Check_Application.class)
+		                        .buildSessionFactory();
+		        
+		        // create session
+		        Session session = factory.getCurrentSession();
+		        
+		        String result="AN ERROR OCCURED WHILE UPLOADING THE FILES";
+		        
+		        try {
+		        	
+		        		// create the student object
+		                Check_Application checkapp = new Check_Application(date_of_check, is_Approved, points, check_id);
+		                 
+		                 // start a transaction
+		                 session.beginTransaction();
+		                 
+		                 // save the student object
+		                session.save(checkapp);
+		                 
+		                 // commit transaction
+		                 session.getTransaction().commit();
+		                 System.out.println("Done!");
+		                 
+		                 result="Submittion completed";
+		            
+		            	return result;
+				    }
+				    finally {
+				            factory.close();
+				    }
+		       
+				
+			}
 	
 }
 	

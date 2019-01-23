@@ -1,5 +1,6 @@
 package gr.hua.dit.transfer;
 
+import java.util.Arrays;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +21,10 @@ public class Application {
 	@Column(name="application_id")
 	private String application_id;
 	
+	
+	@Column(name="isChecked")
+	private int isChecked;
+	
 	@Lob	
 	@Column(name="family")
 	private byte[] family;
@@ -31,22 +36,19 @@ public class Application {
 	@Lob
 	@Column(name="locality")
 	private byte[] locality;
+	
+	public Application() {}
 
-
-	public Application(Date date_of_submission, String application_id, byte[] family, byte[] financially, byte[] locality) {
+	public Application(Date date_of_submission, String application_id, int isChecked, byte[] family, byte[] financially,
+			byte[] locality) {
 		super();
 		this.date_of_submission = date_of_submission;
 		this.application_id = application_id;
+		this.isChecked = isChecked;
 		this.family = family;
 		this.financially = financially;
 		this.locality = locality;
 	}
-	
-	
-
-	public Application() {}
-
-
 
 	public Date getDate_of_submission() {
 		return date_of_submission;
@@ -62,6 +64,14 @@ public class Application {
 
 	public void setApplication_id(String application_id) {
 		this.application_id = application_id;
+	}
+
+	public int getIsChecked() {
+		return isChecked;
+	}
+
+	public void setIsChecked(int isChecked) {
+		this.isChecked = isChecked;
 	}
 
 	public byte[] getFamily() {
@@ -91,10 +101,10 @@ public class Application {
 	@Override
 	public String toString() {
 		return "Application [date_of_submission=" + date_of_submission + ", application_id=" + application_id
-				+ ", family=" + family + ", financially=" + financially + ", locality=" + locality + "]";
+				+ ", isChecked=" + isChecked + ", family=" + Arrays.toString(family) + ", financially="
+				+ Arrays.toString(financially) + ", locality=" + Arrays.toString(locality) + "]";
 	}
 
 	
-
 	
 }
