@@ -10,7 +10,6 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -153,7 +152,8 @@ public class Servlet extends HttpServlet {
 
 		}
 
-		
+		////alekosalekosalekosalekosalekosalekosalekosalekosalekosalekos
+		///ADD EXTERNAL_USER
 		String add_external = request.getParameter("add_external");
 		if ("add".equals(add_external)) {
 			
@@ -166,6 +166,7 @@ public class Servlet extends HttpServlet {
 			int age = Integer.parseInt(request.getParameter("age"));////////AGE
 			String email = request.getParameter("email").toString();////////EMAIL
 			int yoe = Integer.parseInt(request.getParameter("yoe"));////////YEAR OF ENROLLMENT
+			int pro = 0;////////////////////////////////////////////////////PROGRESS
 			
 			Calendar cal = Calendar.getInstance();
 			int yeartoday = cal.get(Calendar.YEAR);
@@ -181,7 +182,7 @@ public class Servlet extends HttpServlet {
 			
 			user user1 = new user(id,pw,1);
 			authorities auth = new authorities(id,"ROLE_USER");
-			External_User user2 = new External_User(id, username, surname, pw, year, age, email, uni, yoe, sem);
+			External_User user2 = new External_User(id, username, surname, pw, year, age, email, uni, yoe, sem,pro);
 			
 			String message = "hello";
 			try {
@@ -195,7 +196,57 @@ public class Servlet extends HttpServlet {
 			request.getRequestDispatcher("/signin").forward(request, response);
 
 		}
+		
+		///ADD INTERNAL_USER
+		String add_internal = request.getParameter("add_internal");
+		if ("add_internal".equals(add_internal)) {
+			
+			String username = request.getParameter("username").toString();//////USERNAME
+			String surname = request.getParameter("surname").toString();////////SURNAME
+			String id = request.getParameter("id").toString();//////////////////ID
+			String password = request.getParameter("password").toString();//////PASSWORD
+			int year = Integer.parseInt(request.getParameter("year"));//////////YEAR OF BIRTH
+			int age = Integer.parseInt(request.getParameter("age"));////////////AGE
+			String email = request.getParameter("email").toString();////////////EMAIL
+			String role = request.getParameter("role").toString();//////////////ROLE
+			int yoe = Integer.parseInt(request.getParameter("yoe"));////////////YEAR OF ENROLLMENT
+			String department = request.getParameter("department").toString();//DEPARTMENT
+		
+			String pw=password;
+			try {
+			pw = new BCryptPasswordEncoder().encode(password);///////////////////ENCODED PASSWORD
+			}catch(NullPointerException e) {
+				System.out.println("null!!!!");
+				e.printStackTrace();
+			}
+			
+			user user1 = new user(id,pw,1);
+			authorities auth = new authorities(id,role);
+			Internal_user user2 = new Internal_user(id,username,surname,pw,year,age,
+					role,yoe,department,email);
+			
+			String message = "hello";
+			message = InternalService.registerNewUserAccount(user1,user2,auth);
 
+			HttpSession sess = request.getSession();
+			sess.setAttribute("message", message);
+			request.getRequestDispatcher("/definer").forward(request, response);
+		
+		}
+		////SEARCH INTERNAL_USER
+		String search = request.getParameter("search");
+		if ("search".equals(search)) {
+			
+			
+		}
+		/////SHOW INTERNAL_USER
+		String show_users = request.getParameter("show_users");
+		if ("show_users".equals(show_users)) {
+			
+			
+		}
+		
+	////alekosalekosalekosalekosalekosalekosalekosalekosalekosalekos
 		
 		
 		//������ ������ ���� ����

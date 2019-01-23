@@ -40,9 +40,12 @@ public class External_User {
 	
 	@Column(name="current_semester")
 	private int current_semester;
+	
+	@Column(name="app_progress")
+	private int app_progress;
 
 	public External_User(String id, String first_name, String last_name, String password, int year_of_birth, int age,
-			String email, String external_department, int year_of_enrollment, int current_semester) {
+			String email, String external_department, int year_of_enrollment, int current_semester,int app_progress) {
 		super();
 		this.id = id;
 		this.first_name = first_name;
@@ -54,6 +57,7 @@ public class External_User {
 		this.external_department = external_department;
 		this.year_of_enrollment = year_of_enrollment;
 		this.current_semester = current_semester;
+		this.app_progress = app_progress;
 	}
 
 	public String getId() {
@@ -136,12 +140,21 @@ public class External_User {
 		this.current_semester = current_semester;
 	}
 
+	
+	public int getApp_progress() {
+		return app_progress;
+	}
+
+	public void setApp_progress(int app_progress) {
+		this.app_progress = app_progress;
+	}
+
 	@Override
 	public String toString() {
 		return "External_User [id=" + id + ", first_name=" + first_name + ", last_name=" + last_name + ", password="
 				+ password + ", year_of_birth=" + year_of_birth + ", age=" + age + ", email=" + email
 				+ ", external_department=" + external_department + ", year_of_enrollment=" + year_of_enrollment
-				+ ", current_semester=" + current_semester + "]";
+				+ ", current_semester=" + current_semester + ", app_progress=" + app_progress+"]";
 	}
 	
 		

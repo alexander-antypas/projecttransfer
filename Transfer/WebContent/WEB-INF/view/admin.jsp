@@ -63,7 +63,7 @@
 			<option value="hs">ΔΙΑΙΤΟΛΟΓΙΑΣ</option>
 			<option value="geo">ΓΕΩΓΡΑΦΙΑΣ</option>
 		</select>
-		<button type="submit" name="save_user" value="add_internal">ΚΑΤΑΧΩΡΗΣΗ ΧΡΗΣΤΗ</button>
+		<button type="submit" name="add_internal" value="add_internal">ΚΑΤΑΧΩΡΗΣΗ ΧΡΗΣΤΗ</button>
 	</form>
 	<br />
 </div>
