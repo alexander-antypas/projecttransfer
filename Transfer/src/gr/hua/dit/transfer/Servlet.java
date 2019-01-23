@@ -332,6 +332,11 @@ public class Servlet extends HttpServlet {
 			String checkboxValue1 = request.getParameter("opa");
 			String checkboxValue2 = request.getParameter("ekpa");
 			String checkboxValue3 = request.getParameter("unipi");
+			String checkboxValue4 = request.getParameter("uoa");
+			String checkboxValue5 = request.getParameter("teicrete");
+			String checkboxValue6 = request.getParameter("agean");
+			String checkboxValue7 = request.getParameter("apth");
+			String checkboxValue8 = request.getParameter("uth");
 		
 			if (checkboxValue1 != null) {
 				String name= "OPA"; 
@@ -373,6 +378,69 @@ public class Servlet extends HttpServlet {
 					int status= 0;
 					String sstatus=Integer.toString(status);
 					DBExternal_Department.Update(name,sstatus);
+				}
+			
+			if (checkboxValue4 != null) {
+				String name= "UOA"; 
+				int status= 1;
+				String sstatus=Integer.toString(status);
+				 DBExternal_Department.Update(name,sstatus);
+				}else{
+					
+					String name= "UOA"; 
+					int status= 0;
+					String sstatus=Integer.toString(status);
+					 DBExternal_Department.Update(name,sstatus);
+				}
+			if (checkboxValue5 != null) {
+				String name= "TEICRETE"; 
+				int status= 1;
+				String sstatus=Integer.toString(status);
+				 DBExternal_Department.Update(name,sstatus);
+				}else{
+					
+					String name= "TEICRETE"; 
+					int status= 0;
+					String sstatus=Integer.toString(status);
+					 DBExternal_Department.Update(name,sstatus);
+				}
+			if (checkboxValue6 != null) {
+				String name= "AGEAN"; 
+				int status= 1;
+				String sstatus=Integer.toString(status);
+				 DBExternal_Department.Update(name,sstatus);
+				}else{
+					
+					String name= "AGEAN"; 
+					int status= 0;
+					String sstatus=Integer.toString(status);
+					 DBExternal_Department.Update(name,sstatus);
+				}
+			if (checkboxValue7 != null) {
+				String name= "APTH"; 
+				int status= 1;
+				String sstatus=Integer.toString(status);
+				 DBExternal_Department.Update(name,sstatus);
+				}else{
+					
+					String name= "APTH"; 
+					int status= 0;
+					String sstatus=Integer.toString(status);
+					 DBExternal_Department.Update(name,sstatus);
+				}
+			
+			
+			if (checkboxValue8 != null) {
+				String name= "UTH"; 
+				int status= 1;
+				String sstatus=Integer.toString(status);
+				 DBExternal_Department.Update(name,sstatus);
+				}else{
+					
+					String name= "UTH"; 
+					int status= 0;
+					String sstatus=Integer.toString(status);
+					 DBExternal_Department.Update(name,sstatus);
 				}
 			
 			
