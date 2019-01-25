@@ -8,39 +8,30 @@ import org.hibernate.cfg.Configuration;
 
 public class DBExternal_Department {
 
-	
-	
-		public static Void Update(String name,String status) {
-			// create session factory
-	        SessionFactory factory = new Configuration().
-	                        configure("hibernate.cfg.xml")
-	                        .addAnnotatedClass(External_Department.class)
-	                        .buildSessionFactory();
-	        
-	        // create session
-	        Session session = factory.getCurrentSession();
-	        
-	        
-	      
-	                 session.beginTransaction();
-	                 
+	public static Void Update(String name, String status) {
+		// create session factory
+		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml")
+				.addAnnotatedClass(External_Department.class).buildSessionFactory();
 
-	                 
-	                 String U="UPDATE External_Department SET is_Selected = :status " + "WHERE NAME = :name " ;
-	                 Query query= session.createQuery(U);
-	                 query.setParameter("name",name);
-	                 query.setParameter("status",status);
-	                 int result =query.executeUpdate();
-	                 System.out.println("Rows affected: "+result);
-	                 // commit transaction
-	                 
-	                 session.getTransaction().commit();
-	                 System.out.println("Done!");
-	                 
-			  
-			         factory.close();
-					return null;
-			         
-			    }
-	       
-		}
+		// create session
+		Session session = factory.getCurrentSession();
+
+		session.beginTransaction();
+
+		String U = "UPDATE External_Department SET is_Selected = :status " + "WHERE NAME = :name ";
+		Query query = session.createQuery(U);
+		query.setParameter("name", name);
+		query.setParameter("status", status);
+		int result = query.executeUpdate();
+		System.out.println("Rows affected: " + result);
+		// commit transaction
+
+		session.getTransaction().commit();
+		System.out.println("Done!");
+
+		factory.close();
+		return null;
+
+	}
+
+}

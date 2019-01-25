@@ -14,70 +14,54 @@ import javax.persistence.Table;
 public class POSITIONS {
 	
 	@Id
-	@Column(name="informatics")
-	private int informatics;
+	@Column(name="name")
+	private String name;
 	
+	@Column(name="positions")
+	private int positions;
 
-	@Column(name="health_science")
-	private int health_science;
-	
-	
-	@Column(name="home_economics")
-	private int home_economics;
-	
-	
-	@Column(name="geography")
-	private int geography;
-  
-
-	public POSITIONS(int informatics, int health_science, int home_economics, int geography) {
+	public POSITIONS() {
 		super();
-		this.informatics = informatics;
-		this.health_science = health_science;
-		this.home_economics = home_economics;
-		this.geography = geography;
+		// TODO Auto-generated constructor stub
 	}
 
 
-	public int getInformatics() {
-		return informatics;
+	@Override
+	public String toString() {
+		return "POSITIONS [name=" + name + ", positions=" + positions + ", getName()=" + getName() + ", getPositions()="
+				+ getPositions() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
 	}
 
 
-	public void setInformatics(int informatics) {
-		this.informatics = informatics;
+	public POSITIONS(String name, int positions) {
+		super();
+		this.name = name;
+		this.positions = positions;
 	}
 
 
-	public int getHealth_science() {
-		return health_science;
+	public String getName() {
+		return name;
 	}
 
 
-	public void setHealth_science(int health_science) {
-		this.health_science = health_science;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 
-	public int getHome_economics() {
-		return home_economics;
+	public int getPositions() {
+		return positions;
 	}
 
 
-	public void setHome_economics(int home_economics) {
-		this.home_economics = home_economics;
+	public void setPositions(int positions) {
+		this.positions = positions;
 	}
 
 
-	public int getGeography() {
-		return geography;
-	}
 
-
-	public void setGeography(int geography) {
-		this.geography = geography;
-	}
-
-	
-	
 }
+	
+
