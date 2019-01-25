@@ -16,6 +16,10 @@
 
 	<context:component-scan
 		base-package="gr.hua.dit.transfer" />
+	<context:component-scan
+		base-package="gr.hua.dit.security" />
+	<context:component-scan
+		base-package="gr.hua.dit.classes" />
 
 	<!-- application properties file -->
 	<context:property-placeholder

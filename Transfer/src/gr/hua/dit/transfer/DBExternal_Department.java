@@ -6,6 +6,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import gr.hua.dit.classes.External_Department;
+
 public class DBExternal_Department {
 
 	

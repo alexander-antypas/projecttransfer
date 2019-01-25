@@ -1,4 +1,4 @@
-package gr.hua.dit.transfer;
+package gr.hua.dit.classes;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -58,6 +58,10 @@ public class External_User {
 		this.year_of_enrollment = year_of_enrollment;
 		this.current_semester = current_semester;
 		this.app_progress = app_progress;
+	}
+	
+	public External_User() {
+		
 	}
 
 	public String getId() {

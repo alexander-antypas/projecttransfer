@@ -8,6 +8,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import gr.hua.dit.classes.POSITIONS;
+
 public class DBPositions {
 	
 	

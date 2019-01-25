@@ -1,10 +1,14 @@
 package gr.hua.dit.transfer;
 
 
+import java.util.List;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import gr.hua.dit.classes.Application;
 
 @Controller
 public class UserController {
@@ -13,6 +17,7 @@ public class UserController {
 	public String Definer() {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String id = authentication.getName();
 		
 		boolean hasUserRole = authentication.getAuthorities().stream()
 		          .anyMatch(r -> r.getAuthority().equals("ROLE_USER"));
@@ -27,6 +32,13 @@ public class UserController {
 		          .anyMatch(r -> r.getAuthority().equals("ROLE_PROFESSOR"));
 		
 		if(hasUserRole){
+			List<Application> applications = DBApplication.showApplications();
+			for (int i=0; i<applications.size(); i++) {
+				Application app= applications.get(i);
+				if (app.getApplication_id().equals(id)) {
+					return "info_user";
+				}
+			}	
 			return "application";
 		}else if(hasProfessorRole) {
 			return "user-professor";
@@ -36,6 +48,31 @@ public class UserController {
 			return "admin";
 		}
 		return "signin";
+	}
+	
+	@RequestMapping("/SignUp_External")
+	public String SignUp_External() {
+		return "SignUp_External";
+	}
+	
+	@RequestMapping("/info_user")
+	public String info_user() {
+		return "info_user";
+	}
+	
+	@RequestMapping("/Internal_id_finder")
+	public String Internal_id_finder() {
+		return "Internal_id_finder";
+	}
+	
+	@RequestMapping("/admin")
+	public String Admin() {
+		return "admin";
+	}
+	
+	@RequestMapping("/update_internal")
+	public String UpdateInternal() {
+		return "update_internal";
 	}
 	
 	@RequestMapping("/Update_position")

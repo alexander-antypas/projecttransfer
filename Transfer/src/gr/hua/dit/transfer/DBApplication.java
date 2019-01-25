@@ -7,6 +7,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import gr.hua.dit.classes.Application;
+
 public class DBApplication {
 	
 	//пяосхгйг аитгсеым стгм басг

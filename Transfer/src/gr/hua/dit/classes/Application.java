@@ -1,4 +1,4 @@
-package gr.hua.dit.transfer;
+package gr.hua.dit.classes;
 
 import java.util.Arrays;
 import java.util.Date;

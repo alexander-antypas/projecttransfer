@@ -11,8 +11,16 @@
 		<hibernate.version>5.3.7.Final</hibernate.version>
 		<org.springsecurity.version>5.1.2.RELEASE</org.springsecurity.version>
 	</properties>
-	<dependencies>	
-	
+	<dependencies>
+
+		<!-- Add Jackson for JSON converters -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>[2.9.8,)</version>
+		</dependency>
+
+
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -104,6 +112,13 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.5</version>
+		</dependency>
+
+		<!-- Add support for JSP ... get rid of Eclipse error -->
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.1</version>
 		</dependency>
 
 	</dependencies>

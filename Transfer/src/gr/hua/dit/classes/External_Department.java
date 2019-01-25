@@ -1,4 +1,4 @@
-package gr.hua.dit.transfer;
+package gr.hua.dit.classes;
 
 
 import javax.persistence.Column;

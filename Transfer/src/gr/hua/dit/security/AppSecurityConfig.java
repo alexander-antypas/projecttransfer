@@ -1,4 +1,4 @@
-package gr.hua.dit.transfer;
+package gr.hua.dit.security;
 
 import javax.sql.DataSource;
 
@@ -47,10 +47,10 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers( "/help", "/about","/contact","/access_denied","/signin","/Servlet","/UserService").permitAll()
-		.antMatchers( "/application").hasRole("USER")
+		.antMatchers( "/help", "/about","/contact","/access_denied","/signin","/Servlet","/UserService","/SignUp_External").permitAll()
+		.antMatchers( "/application","/info_user").hasRole("USER")
 		.antMatchers( "/informStudents","/overviewStudents","/overviewSystem","/secretary_menu","/Update_position","/updateSystem").hasRole("SECRETARIAT")
-		.antMatchers( "/admin").hasRole("ADMIN")
+		.antMatchers( "/admin","/Internal_id_finder","/update_internal").hasRole("ADMIN")
 		.antMatchers( "/documents","/points","/user-professor").hasRole("PROFESSOR")
 		.anyRequest()
 		.authenticated()
@@ -59,6 +59,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 		.loginPage("/signin")
 		.loginProcessingUrl("/authUser")
 		.defaultSuccessUrl("/definer", true)
+		.failureUrl("/denied")
 		.permitAll()
 		.and()
 		.logout()

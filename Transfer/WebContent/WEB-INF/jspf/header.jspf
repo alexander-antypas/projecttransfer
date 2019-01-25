@@ -101,6 +101,16 @@ a:active {
 	block;
 }
 
+#contentup {
+	padding: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+	display
+	=
+	block;
+}
+
 ul {
 	list-style: none;
 	margin: 0;
@@ -113,6 +123,17 @@ ul {
 }
 
 input[type=text], select, textarea {
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	margin-top: 6px;
+	margin-bottom: 16px;
+	resize: vertical;
+}
+
+input[type=number], select, textarea {
 	width: 100%;
 	padding: 12px;
 	border: 1px solid #ccc;
@@ -254,6 +275,7 @@ footer {
 }
 </style>
 <script>
+
 	function myFunction() {
 		var x = document.getElementById("content2");
 		var y = document.getElementById("content1");
@@ -271,6 +293,36 @@ footer {
 		y.style.display = "none";
 		w.style.display = "none";
 		z.style.display = "block";
+	}
+	function Selector(){
+		var university = String(document.getElementById("u").value);
+		var res = String(university.split("-",1));
+		switch(res){
+			case "1":
+				document.getElementById("par").innerHTML = "Το Α.Μ. θα πρέπει να ξεκινάει με : it";
+				break;
+			case "2":
+				document.getElementById("par").innerHTML = "Το Α.Μ. θα πρέπει να ξεκινάει με : hs";
+				break;
+			case "3":
+				document.getElementById("par").innerHTML = "Το Α.Μ. θα πρέπει να ξεκινάει με : ge";
+				break;
+			case "4":
+				document.getElementById("par").innerHTML = "Το Α.Μ. θα πρέπει να ξεκινάει με : he";
+				break;
+			default:
+				document.getElementById("par").innerHTML = "";
+				break;
+		}
+		function check_id(){
+			var university = String(document.getElementById("u").value);
+			var res1 = String(university.split("-",1));
+			var identity = String(document.getElementById("id").value);
+			var c = identity.substring(1, 4);
+			console.log(c); 
+			document.getElementById("check").innerHTML="ΛΑΘΟΣ Α.Μ.";
+			
+		}
 	}
 </script>
 </head>
@@ -291,9 +343,8 @@ footer {
 							<br /> <a href="definer">Αρχική</a> <a href="about">Σχετικά</a> <a
 								href="help">Βοήθεια</a> <a href="contact">Επικοινωνία</a>
 							<sec:authorize access="isAuthenticated()">
-							    <a href="<c:url value="/logout" />">Logout</a>
-								<sec:authentication property="principal.username" />:
-								<sec:authentication property="principal.authorities" />
+							    <a href="<c:url value="/logout" />">Αποσύνδεση</a>
+								<sec:authentication property="principal.username" />
 							</sec:authorize>
 						</center>
 					</div>

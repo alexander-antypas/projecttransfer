@@ -1,4 +1,4 @@
-package gr.hua.dit.transfer;
+package gr.hua.dit.security;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
