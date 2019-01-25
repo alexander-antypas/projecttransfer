@@ -135,7 +135,7 @@ public class Servlet extends HttpServlet {
 
 			Date date = new Date();
 
-			String application_id = request.getParameter("userid").toString();
+			String id = request.getParameter("user_id").toString();
 			int isChecked = 0;
 
 			byte[] familyfile = null;
@@ -160,12 +160,12 @@ public class Servlet extends HttpServlet {
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST);
 			}
 
-			String result = DBApplication.addApplication(date, application_id, isChecked, familyfile, financiallyfile,
+			DBApplication.addApplication(date, id, isChecked, familyfile, financiallyfile,
 					localityfile);
-
+			
 			HttpSession sess = request.getSession();
-			sess.setAttribute("result", result);
-			request.getRequestDispatcher("/application").forward(request, response);
+			sess.setAttribute("id", id);
+			request.getRequestDispatcher("/info_user").forward(request, response);
 		}
 
 		// VIEW ALL APPLICATIONS THAT HAVE NOT YET CHECKED
