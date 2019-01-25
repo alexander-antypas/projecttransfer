@@ -5,7 +5,10 @@
 	<form action="Servlet" method="POST" enctype="multipart/form-data" >
 		<h1>Αίτηση Μεταγγραφής</h1>
 		
-			USER ID: <input type="text" name="userid" placeholder="User_id">
+			USER ID: <sec:authentication property="principal.username" />
+			
+			<input type="hidden" id="user_id" name="user_id" value="<sec:authentication property="principal.username" />">
+			
 			<h3> Πιστοποιητικό Οικογειακής Κατάστασης </h3><br /><br />
 			Select a file: <input type="file" name="family" size="50"><br /><br />
 			<h3>Εκκαθαριστικό της τρέχουσας χρονιάς </h3><br /><br />
