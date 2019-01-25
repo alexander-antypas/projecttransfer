@@ -5,12 +5,12 @@ public class Admin {
 	//екецвос циа тгм епаяйеиа тым дийаиокоцгтийым еццяажым
 
 	public String documents (int number) {
-		String decision;
+		String decision;		
 		if (number<3) {
-			decision="INSUFFICIENT NUMBER OF DOCUMENTS";
+			decision="амепаяйгс аяихлос еццяажым";
 			return decision;
 		} else if (number==3) {
-			decision="SUFFICIENT NUMBER OF DOCUMENTS";
+			decision="епаяйгс аяихлос еццяажым";
 			return decision;
 		} else {
 			decision="INVALID INPUT";

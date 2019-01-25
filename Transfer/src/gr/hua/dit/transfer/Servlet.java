@@ -1,5 +1,6 @@
 package gr.hua.dit.transfer;
 
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
@@ -10,8 +11,8 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import javax.persistence.Query;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -52,7 +53,6 @@ public class Servlet extends HttpServlet {
 
 	//@Autowired
 	//private PasswordEncoder passwordEncoder;
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
@@ -62,34 +62,66 @@ public class Servlet extends HttpServlet {
 
 		if ("Submit".equals(button)) {
 			Admin admin = new Admin();
-			int number = Integer.parseInt(request.getParameter("documents"));
-			String decision = admin.documents(number);
+			
+			String documents = request.getParameter("documents");
 
-			HttpSession session = request.getSession();
-			session.setAttribute("decision", decision);
-			request.getRequestDispatcher("/documents").forward(request, response);
+			if(documents=="") {
+				String decision = "ΣΥΜΠΛΗΡΩΣΤΕ ΟΛΑ ΤΑ ΚΕΝΑ";
+				
+				HttpSession session = request.getSession();
+				session.setAttribute("decision", decision);
+				request.getRequestDispatcher("/documents").forward(request, response);
+			}else {
+				int number = Integer.parseInt(documents);
+				String decision;
+				if (number<0) {
+					decision="!!";
+					HttpSession session = request.getSession();
+					session.setAttribute("decision", decision);
+					request.getRequestDispatcher("/documents").forward(request, response);
+				}else{
+					decision = admin.documents(number);
+					
+					HttpSession session = request.getSession();
+					session.setAttribute("decision", decision);
+					request.getRequestDispatcher("/documents").forward(request, response);
+				}
+			}
 		}
 
 		String score = request.getParameter("score");
 
 		if ("Points".equals(score)) {
 			Admin admin = new Admin();
-			int stdsibling = Integer.parseInt(request.getParameter("stdsibling"));
-			int numbersiblings = Integer.parseInt(request.getParameter("numbersiblings"));
-			int income = Integer.parseInt(request.getParameter("income"));
-			int town = Integer.parseInt(request.getParameter("town"));
-
-			int points = admin.points(stdsibling, numbersiblings, income, town);
 			
+			String par1 = request.getParameter("stdsibling");
+			String par2 = request.getParameter("numbersiblings");			
+			String par3 = request.getParameter("income");
+			String par4 = request.getParameter("town");
 			
 			String appid = request.getParameter("appid").toString();
-						
-			HttpSession sess=request.getSession(); 
-
-			HttpSession sess = request.getSession();
-			sess.setAttribute("points", points);
-			sess.setAttribute("appid", appid);
-			request.getRequestDispatcher("/points").forward(request, response);
+			
+			if( par1=="" || par2==""|| par3=="" || par4=="") {
+				String message="ΣΥΜΠΛΗΡΩΣΤΕ ΟΛΑ ΤΑ ΚΕΝΑ";
+				
+				HttpSession sess=request.getSession(); 
+				sess.setAttribute("message", message);
+				request.getRequestDispatcher("/points").forward(request, response);
+				
+			} else {
+				int stdsibling = Integer.parseInt(par1);
+				int numbersiblings = Integer.parseInt(par2);
+				int income = Integer.parseInt(par3);
+				int town = Integer.parseInt(par4);
+				
+				int points = admin.points(stdsibling, numbersiblings, income, town);				
+											
+				HttpSession sess=request.getSession(); 
+				sess.setAttribute("points", points);
+				sess.setAttribute("appid", appid);
+				request.getRequestDispatcher("/points").forward(request, response);
+			}
+	
 		}
 
 		// ÐÑÏÓÈÇÊÇ ÁÉÔÇÓÇÓ ÓÔÇÍ ÂÁÓÇ
@@ -106,11 +138,6 @@ public class Servlet extends HttpServlet {
 			byte[] financiallyfile=null;
 			byte[] localityfile=null;
 			
-
-			byte[] familyfile = null;
-			byte[] financiallyfile = null;
-			byte[] localityfile = null;
-
 			try {
 				Part family = request.getPart("family");
 				InputStream is1 = family.getInputStream();
@@ -131,16 +158,12 @@ public class Servlet extends HttpServlet {
 			
 		    String result= DBApplication.addApplication(date, application_id, isChecked, familyfile, financiallyfile, localityfile);
 			
-
-			String result = DBApplication.addApplication(date, application_id, familyfile, financiallyfile,
-					localityfile);
-
 			HttpSession sess = request.getSession();
 			sess.setAttribute("result", result);
 			request.getRequestDispatcher("/application").forward(request, response);
 		}
 
-		// ÅÌÖÁÍÉÓÇ ÏËÙÍ ÔÙÍ ÁÉÔÇÓÅÙÍ ÁÐÏ ÔÇÍ ÂÁÓÇ
+		// VIEW ALL APPLICATIONS THAT HAVE NOT YET CHECKED
 
 		String viewall = request.getParameter("viewall");
 
@@ -153,29 +176,78 @@ public class Servlet extends HttpServlet {
 			request.getRequestDispatcher("/user-professor").forward(request, response);
 		}
 		
-		//�������� ������������� ������� �� ���� �� ID	
 		
-
-		// ÅÌÖÁÍÉÓÇ ÓÕÃÊÅÊÑÉÌÅÍÇÓ ÁÉÔÇÓÇÓ ÌÅ ÂÁÓÇ ÔÏ ID
-
-		String openapp = request.getParameter("openapp");
-
-		if ("Open".equals(openapp)) {
-
+		//SEARCH
+		
+		String searchuserid = request.getParameter("searchuserid");
+		
+		if("searchuserid".equals(searchuserid)){
+			String appid = request.getParameter("appid");
+			
+			if (appid=="") {
+				String message = "ΠΛΗΚΤΡΟΛΟΓΕΙΣΤΕ ΚΑΠΟΙΟ ID";
+				
+				HttpSession sess = request.getSession();
+				sess.setAttribute("message", message);
+				request.getRequestDispatcher("/user-professor").forward(request, response);
+			}else {
+				
+				List<Application> applications = DBApplication.showApplications();
+				int b=0;
+				for (int i=0; i<applications.size(); i++) {
+					Application paparitsa= applications.get(i);
+					if (paparitsa.getApplication_id().equals(appid)) {
+						b=1;
+					}
+				}
+				if(b==1) {
+					HttpSession sess = request.getSession();
+					sess.setAttribute("appid", appid);
+					request.getRequestDispatcher("/documents").forward(request, response);
+				}else {
+					String message = "ΤΟ ID ΔΕΝ ΥΠΑΡΧΕΙ, ΠΛΗΚΤΡΟΛΟΓΕΙΣΤΕ ΚΑΠΟΙΟ ΑΛΛΟ";
+					HttpSession sess = request.getSession();
+					sess.setAttribute("message", message);
+					request.getRequestDispatcher("/user-professor").forward(request, response);
+				}
+			}
+		}
+		
+		//OPEN FILES OF APPLICATION WITH USER_ID
+		String familydownload = request.getParameter("family");
+		
+		if("family".equals(familydownload)) {
+			String appid = request.getParameter("appid").toString();
+			byte[] family = DBApplication.loadFamily(appid);
+			ServletOutputStream os1 = response.getOutputStream();
+			response.setContentType("file/pdf");
+			os1.write(family);
+			os1.close();
+		}
+				
+		String financiallydownload = request.getParameter("financially");
+		
+		if("financially".equals(financiallydownload)) {
 			String appid = request.getParameter("appid").toString();
 			
-			Application app = DBApplication.openApplication(appid);
-					
-
-			List<Application> applications = DBApplication.openApplication(appid);
-
-			HttpSession sess = request.getSession();
-			sess.setAttribute("app", app);
-			request.getRequestDispatcher("/documents").forward(request, response);
-					
-
+			byte[] financially = DBApplication.loadFinancially(appid);
+			ServletOutputStream os2 = response.getOutputStream();
+			response.setContentType("file/pdf");
+			os2.write(financially);
+			os2.close();	
 		}
-
+		
+		String localitydownload = request.getParameter("locality");
+		
+		if("locality".equals(localitydownload)) {
+			String appid = request.getParameter("appid").toString();
+			
+			byte[] locality = DBApplication.loadLocality(appid);
+			ServletOutputStream os3 = response.getOutputStream();
+			response.setContentType("file/pdf");
+			os3.write(locality);
+			os3.close();
+		}	
 		
 		String add_external = request.getParameter("add_external");
 		if ("add".equals(add_external)) {
@@ -220,11 +292,9 @@ public class Servlet extends HttpServlet {
 		}
 
 		
-		//������� �������
+		//approved
 		
 		String check = request.getParameter("check");
-		//������ ������ ���� ����
-		String Updateposi = request.getParameter("Updateposi");
 		
 		if ("check".equals(check)) {
 			
@@ -234,11 +304,15 @@ public class Servlet extends HttpServlet {
 			String check_id = request.getParameter("appid");
 			
 			String result = DBApplication.check_application(date, is_Approved, points, check_id);
+			DBApplication.updateCheck_id(check_id);
 			
 			HttpSession sess = request.getSession();
 			sess.setAttribute("result", result);	
 			request.getRequestDispatcher("/points").forward(request, response);
 		}
+		
+		String Updateposi = request.getParameter("Updateposi");
+		
 		if ("Submit".equals(Updateposi)) {
 			
 			
@@ -267,8 +341,10 @@ public class Servlet extends HttpServlet {
 			
 			String result = DBApplication.check_application(date, is_Approved, points, check_id);
 			
+			DBApplication.updateCheck_id(check_id);
+			
 			HttpSession sess = request.getSession();
-			sess.setAttribute("result", result);	
+			sess.setAttribute("result", result);
 			request.getRequestDispatcher("/user-professor").forward(request, response);
 		}
 	
@@ -324,11 +400,6 @@ public class Servlet extends HttpServlet {
 					DBExternal_Department.Update(name,sstatus);
 				}
 			
-			
-		
-			
-		   
-		    
 		   
 			request.getRequestDispatcher("/Update_position").forward(request, response);
 			
