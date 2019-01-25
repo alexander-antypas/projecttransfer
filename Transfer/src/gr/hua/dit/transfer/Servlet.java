@@ -1,6 +1,5 @@
 package gr.hua.dit.transfer;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
@@ -60,26 +59,26 @@ public class Servlet extends HttpServlet {
 
 		if ("Submit".equals(button)) {
 			Admin admin = new Admin();
-			
+
 			String documents = request.getParameter("documents");
 
-			if(documents=="") {
+			if (documents == "") {
 				String decision = "ΣΥΜΠΛΗΡΩΣΤΕ ΟΛΑ ΤΑ ΚΕΝΑ";
-				
+
 				HttpSession session = request.getSession();
 				session.setAttribute("decision", decision);
 				request.getRequestDispatcher("/documents").forward(request, response);
-			}else {
+			} else {
 				int number = Integer.parseInt(documents);
 				String decision;
-				if (number<0) {
-					decision="!!";
+				if (number < 0) {
+					decision = "!!";
 					HttpSession session = request.getSession();
 					session.setAttribute("decision", decision);
 					request.getRequestDispatcher("/documents").forward(request, response);
-				}else{
+				} else {
 					decision = admin.documents(number);
-					
+
 					HttpSession session = request.getSession();
 					session.setAttribute("decision", decision);
 					request.getRequestDispatcher("/documents").forward(request, response);
@@ -91,23 +90,38 @@ public class Servlet extends HttpServlet {
 
 		if ("Points".equals(score)) {
 			Admin admin = new Admin();
-			int stdsibling = Integer.parseInt(request.getParameter("stdsibling"));
-			int numbersiblings = Integer.parseInt(request.getParameter("numbersiblings"));
-			int income = Integer.parseInt(request.getParameter("income"));
-			int town = Integer.parseInt(request.getParameter("town"));
 
-			int points = admin.points(stdsibling, numbersiblings, income, town);
+			String par1 = request.getParameter("stdsibling");
+			String par2 = request.getParameter("numbersiblings");
+			String par3 = request.getParameter("income");
+			String par4 = request.getParameter("town");
 
 			String appid = request.getParameter("appid").toString();
 
-			HttpSession sess = request.getSession();
+			if (par1 == "" || par2 == "" || par3 == "" || par4 == "") {
+				String message = "ΣΥΜΠΛΗΡΩΣΤΕ ΟΛΑ ΤΑ ΚΕΝΑ";
 
-			sess.setAttribute("points", points);
-			sess.setAttribute("appid", appid);
-			request.getRequestDispatcher("/points").forward(request, response);
+				HttpSession sess = request.getSession();
+				sess.setAttribute("message", message);
+				request.getRequestDispatcher("/points").forward(request, response);
+
+			} else {
+				int stdsibling = Integer.parseInt(par1);
+				int numbersiblings = Integer.parseInt(par2);
+				int income = Integer.parseInt(par3);
+				int town = Integer.parseInt(par4);
+
+				int points = admin.points(stdsibling, numbersiblings, income, town);
+
+				HttpSession sess = request.getSession();
+				sess.setAttribute("points", points);
+				sess.setAttribute("appid", appid);
+				request.getRequestDispatcher("/points").forward(request, response);
+			}
+
 		}
 
-		// ÐÑÏÓÈÇÊÇ ÁÉÔÇÓÇÓ ÓÔÇÍ ÂÁÓÇ
+		// ADD APPLICATION
 		String application = request.getParameter("application");
 
 		if ("Submit".equals(application)) {
@@ -160,24 +174,116 @@ public class Servlet extends HttpServlet {
 			request.getRequestDispatcher("/user-professor").forward(request, response);
 		}
 
-		// �������� ������������� ������� �� ���� �� ID
+		// SEARCH
 
-		// ÅÌÖÁÍÉÓÇ ÓÕÃÊÅÊÑÉÌÅÍÇÓ ÁÉÔÇÓÇÓ ÌÅ ÂÁÓÇ ÔÏ ID
+		String searchuserid = request.getParameter("searchuserid");
 
-		String openapp = request.getParameter("openapp");
+		if ("searchuserid".equals(searchuserid)) {
+			String appid = request.getParameter("appid");
 
-		if ("Open".equals(openapp)) {
+			if (appid == "") {
+				String message = "ΠΛΗΚΤΡΟΛΟΓΕΙΣΤΕ ΚΑΠΟΙΟ ID";
 
-			String appid = request.getParameter("appid").toString();
+				HttpSession sess = request.getSession();
+				sess.setAttribute("message", message);
+				request.getRequestDispatcher("/user-professor").forward(request, response);
+			} else {
 
-			Application app = DBApplication.openApplication(appid);
-
-			HttpSession sess = request.getSession();
-			sess.setAttribute("app", app);
-			request.getRequestDispatcher("/documents").forward(request, response);
-
+				List<Application> applications = DBApplication.showApplications();
+				int b = 0;
+				for (int i = 0; i < applications.size(); i++) {
+					Application app = applications.get(i);
+					if (app.getApplication_id().equals(appid)) {
+						b = 1;
+					}
+				}
+				if (b == 1) {
+					HttpSession sess = request.getSession();
+					sess.setAttribute("appid", appid);
+					request.getRequestDispatcher("/documents").forward(request, response);
+				} else {
+					String message = "ΤΟ ID ΔΕΝ ΥΠΑΡΧΕΙ, ΠΛΗΚΤΡΟΛΟΓΕΙΣΤΕ ΚΑΠΟΙΟ ΑΛΛΟ";
+					HttpSession sess = request.getSession();
+					sess.setAttribute("message", message);
+					request.getRequestDispatcher("/user-professor").forward(request, response);
+				}
+			}
 		}
 
+		// OPEN FILES OF APPLICATION WITH USER_ID
+		String familydownload = request.getParameter("family");
+
+		if ("family".equals(familydownload)) {
+			String appid = request.getParameter("appid").toString();
+			byte[] family = DBApplication.loadFamily(appid);
+			ServletOutputStream os1 = response.getOutputStream();
+			response.setContentType("file/pdf");
+			os1.write(family);
+			os1.close();
+		}
+
+		String financiallydownload = request.getParameter("financially");
+
+		if ("financially".equals(financiallydownload)) {
+			String appid = request.getParameter("appid").toString();
+
+			byte[] financially = DBApplication.loadFinancially(appid);
+			ServletOutputStream os2 = response.getOutputStream();
+			response.setContentType("file/pdf");
+			os2.write(financially);
+			os2.close();
+		}
+
+		String localitydownload = request.getParameter("locality");
+
+		if ("locality".equals(localitydownload)) {
+			String appid = request.getParameter("appid").toString();
+
+			byte[] locality = DBApplication.loadLocality(appid);
+			ServletOutputStream os3 = response.getOutputStream();
+			response.setContentType("file/pdf");
+			os3.write(locality);
+			os3.close();
+		}
+		// approved
+		String check = request.getParameter("check");
+
+		if ("check".equals(check)) {
+
+			Date date = new Date();
+			int is_Approved = Integer.parseInt(request.getParameter("is_Approved"));
+			int points = Integer.parseInt(request.getParameter("points"));
+			String check_id = request.getParameter("appid");
+
+			String result = DBApplication.check_application(date, is_Approved, points, check_id);
+			DBApplication.updateCheck_id(check_id);
+
+			HttpSession sess = request.getSession();
+			sess.setAttribute("result", result);
+			request.getRequestDispatcher("/points").forward(request, response);
+		}
+		
+		//disapproved 
+		String declined = request.getParameter("declined");
+		if ("declined".equals(declined)) {
+			
+			Date date = new Date();
+			int is_Approved = Integer.parseInt(request.getParameter("is_Approved"));
+			int points = Integer.parseInt(request.getParameter("points"));
+			String check_id = request.getParameter("appid");
+			
+			String result = DBApplication.check_application(date, is_Approved, points, check_id);
+			
+			DBApplication.updateCheck_id(check_id);
+			
+			HttpSession sess = request.getSession();
+			sess.setAttribute("result", result);
+			request.getRequestDispatcher("/user-professor").forward(request, response);
+		}
+		
+		//SOPHIASOPHIASOPHIASOPHIASOPHIASOPHIASOPHIASOPHIASOPHIASOPHIASOPHIA TERMINAL LINE
+		
+		
 		//// alekosalekosalekosalekosalekosalekosalekosalekosalekosalekos
 		/// ADD EXTERNAL_USER
 		String add_external = request.getParameter("add_external");
@@ -258,6 +364,7 @@ public class Servlet extends HttpServlet {
 			request.getRequestDispatcher("/definer").forward(request, response);
 
 		}
+
 		//// SEARCH INTERNAL_USER
 		String search = request.getParameter("search");
 		if ("search".equals(search)) {
@@ -271,28 +378,8 @@ public class Servlet extends HttpServlet {
 
 		//// alekosalekosalekosalekosalekosalekosalekosalekosalekosalekos
 
-		// ������� �������
-
-		String check = request.getParameter("check");
 		// ������ ������ ���� ����
 		String Updateposi = request.getParameter("Updateposi");
-
-		if ("check".equals(check)) {
-
-			Date date = new Date();
-			int is_Approved = Integer.parseInt(request.getParameter("is_Approved"));
-			int points = Integer.parseInt(request.getParameter("points"));
-			String check_id = request.getParameter("appid");
-
-			String result = DBApplication.check_application(date, is_Approved, points, check_id);
-
-			HttpSession sess = request.getSession();
-			sess.setAttribute("result", result);
-			request.getRequestDispatcher("/points").forward(request, response);
-		}
-		
-		String Updateposi = request.getParameter("Updateposi");
-		
 		if ("Submit".equals(Updateposi)) {
 
 			int informatics = Integer.parseInt(request.getParameter("informatics"));
@@ -311,22 +398,6 @@ public class Servlet extends HttpServlet {
 
 			request.getRequestDispatcher("/secretary_menu").forward(request, response);
 
-		}
-
-		// �������� �������
-		String declined = request.getParameter("declined");
-		if ("declined".equals(declined)) {
-
-			Date date = new Date();
-			int is_Approved = Integer.parseInt(request.getParameter("is_Approved"));
-			int points = Integer.parseInt(request.getParameter("points"));
-			String check_id = request.getParameter("appid");
-
-			String result = DBApplication.check_application(date, is_Approved, points, check_id);
-
-			HttpSession sess = request.getSession();
-			sess.setAttribute("result", result);
-			request.getRequestDispatcher("/user-professor").forward(request, response);
 		}
 
 		// ��������� ������ �������������
@@ -540,7 +611,7 @@ public class Servlet extends HttpServlet {
 				System.out.println("Done Updating!");
 
 			}
-			DBPositions.setAsDeclined(); //enhmerwnei autous pou den perasan
+			DBPositions.setAsDeclined(); // enhmerwnei autous pou den perasan
 			request.getRequestDispatcher("/secretary_menu").forward(request, response);
 		}
 

@@ -1,16 +1,12 @@
 package gr.hua.dit.transfer;
 
-import java.util.Date;
 import java.util.List;
-import java.util.*;
 import javax.persistence.Query;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import java.sql.*;
-import org.hibernate.*;
-import org.hibernate.criterion.*;
+
 
 public class DBPositions {
 
@@ -30,6 +26,7 @@ public class DBPositions {
 
 			Query query = session.createQuery(S);
 			query.setParameter("starts", starts+"%");// bazei parametro
+			@SuppressWarnings("unchecked")
 			List<Check_Application> usersIDDEP = query.getResultList();
 
 			// commit transaction
@@ -56,6 +53,7 @@ public class DBPositions {
 			session.beginTransaction();
 
 			// query applications
+			@SuppressWarnings("unchecked")
 			List<Check_Application> usersID = session
 					.createQuery(" FROM Check_Application C WHERE C.is_Approved = 1 ORDER BY C.points DESC ")
 					.getResultList();
@@ -109,12 +107,7 @@ public class DBPositions {
 		POSITIONS pos =session.get(POSITIONS.class, depi);
 		int num=0;
 		num=pos.getPositions();
-		
 
-		
-		
-		
-		
 		session.getTransaction().commit();
 		System.out.println("Done!");
 

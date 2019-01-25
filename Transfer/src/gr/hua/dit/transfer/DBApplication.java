@@ -3,7 +3,6 @@ package gr.hua.dit.transfer;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.hibernate.Session;
@@ -66,6 +65,7 @@ public class DBApplication {
 			session.beginTransaction();
 
 			// query applications
+			@SuppressWarnings("unchecked")
 			List<Application> applications = session.createQuery("from Application app where app.isChecked=0").getResultList();
 
 			// commit transaction
@@ -81,31 +81,6 @@ public class DBApplication {
 
 	}
 
-	// елжамисг аитгсгс ле басг то USER_ID
-	/*
-	public static Application openApplication(String appid) {
-		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Application.class)
-				.buildSessionFactory();
-
-		Session session = factory.getCurrentSession();
-
-		try {
-			// start a transaction
-			session.beginTransaction();
-
-			// query application(s) with user_id
-			Application app = session.get(Application.class, appid);
-			// commit transaction
-			session.getTransaction().commit();			
-			System.out.println("Done!");
-
-			return app;
-
-		} finally {
-			factory.close();
-		}
-	}
-	*/
 	
 	public static byte[] loadFamily(String application_id) {
 		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml")
