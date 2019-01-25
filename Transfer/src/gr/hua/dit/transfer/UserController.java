@@ -80,6 +80,11 @@ public class UserController {
 		return "Update_position";
 	}
 	
+	@RequestMapping("/aprovedStudents")
+	public String aprovedStudents() {
+		return "aprovedStudents";
+	}
+	
 	@RequestMapping("/denied")
 	public String denied() {
 		return "access_denied";

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 	
 <%@ page import="gr.hua.dit.transfer.Servlet" %>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <form action="user-professor" method="get">
 	<button type="submit">ΠΙΣΩ</button>
@@ -13,7 +14,6 @@
 	<form action="Servlet" method="POST">
 		${param.appid} <br/>
 		<input type="hidden" id="appid" name="appid" value="${param.appid}">
-		<button type="submit" name="openapp" value="Open">ΑΝΟΙΓΜΑ ΑΙΤΗΣΗΣ</button><br/><br/>
 			<table border="1">
 				<tr> 
 					<th> Πιστοποιητικό Οικογενειακής Κατάστασης </th>
@@ -21,9 +21,9 @@
 					<th> Βεβαίωση Μόνιμης Κατοικίας </th>		
 				</tr>
 				<tr>
-					<th>${app.family}</th>
-					<th>${app.financially}</th>
-					<th>${app.locality}</th>
+					<th><button type="submit" name="family" value="family">DOWNLOAD</button></th>
+					<th><button type="submit" name="financially" value="financially">DOWNLOAD</button></th>
+					<th><button type="submit" name="locality" value="locality">DOWNLOAD</button></th>
 				</tr>
 			</table>
 		<br/><br/>	
@@ -32,6 +32,7 @@
 	<form action="Servlet" method="post">
 		<h1> Καταγράψτε τον αριθμό των δικαιολογητικών: </h1> 
 		<br/><br/>
+		<input type="hidden" id="appid" name="appid" value="${param.appid}">
 		<input name="documents" type="number">
 		<button type="submit" name="button" value="Submit">ΥΠΟΒΟΛΗ</button>
 		<br/><br/>

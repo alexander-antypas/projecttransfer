@@ -7,12 +7,12 @@
 <div class=list>
 	<h1> Αποθετήριο Αιτήσεων</h1>
 
-	<form action="documents" method="get">
+	<form action="Servlet" method="POST">
 		<p> Γράψτε το ID της αίτησης που θέλετε να ελέγξετε: </p>
-		<input type="text" id="appid" name="appid" placeholder="APPLICATION'S ID">
-		<br/>
-	
-		<button type="submit">ΕΠΟΜΕΝΟ</button>
+		<input type="text" id="appid" name="appid" placeholder="APPLICATION'S ID"><br/>	
+		<button type="submit" name="searchuserid" value="searchuserid">ΕΠΟΜΕΝΟ</button> <br/><br/>
+
+		${message}
 	</form>
 	<br/>
 	

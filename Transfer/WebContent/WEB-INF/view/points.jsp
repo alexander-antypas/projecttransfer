@@ -26,7 +26,8 @@
 		<input type="hidden" id="appid" name="appid" value="${param.appid}">
 		<button type="submit" name="score" value="Points">ΚΑΤΑΜΕΤΡΗΣΗ ΒΑΘΜΟΛΟΓΙΑΣ</button>
 		<br/><br/>
-		${points}
+		${points} <br/>
+		${message}
 		<br/><br/> 
 	</form>
 	

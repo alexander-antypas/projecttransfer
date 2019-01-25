@@ -1,14 +1,17 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+		<form   action="secretary_menu" method="get">
+		<button>ΠΙΣΩ</button>
+	</form>
+
 <div class="content">
-	<h1>Select Students:</h1>
-	<form action="overviewStudents" method="get">
-		<input type="checkbox" name="st1" value="student1">Student1<br>
-		<input type="checkbox" name="st2" value="student2">Student2<br>
-		<input type="checkbox" name="st3" value="student3" checked>Student3<br><br>
-		<input type="submit" value="Submit">
+	<h1>Μαθητες με εγγεκριμενες αιτησεις ταξινομημενοι βαση των ποντων:</h1>
+	<form action="Servlet" method="POST">
+		
+		<button type="submit" name='SelectS' value="SelectS"> ΕΜΦΑΝΙΣΗ ΕΓΚΕΚΡΙΜΕΝΩΝ ΜΑΘΗΤΩΝ </button>
 	</form>
 	</br>
 	</br>
-	<form action="secretary" method="get">
-		<button>back</button>
-	</form>
+	
 </div>
