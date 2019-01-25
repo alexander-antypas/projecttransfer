@@ -46,7 +46,7 @@ public class Internal_user {
 	}
 
 	public Internal_user(String id, String first_name, String last_name, String password, int year_of_birth, int age,
-			String employee_type, int year_of_recruitment, String department) {
+			String employee_type, int year_of_recruitment, String department,String email) {
 		super();
 		this.id = id;
 		this.first_name = first_name;
@@ -57,6 +57,7 @@ public class Internal_user {
 		this.employee_type = employee_type;
 		this.year_of_recruitment = year_of_recruitment;
 		this.department = department;
+		this.email = email;
 	}
 
 	public String getId() {

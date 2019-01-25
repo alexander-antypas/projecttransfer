@@ -1,5 +1,12 @@
 eclipse.preferences.version=1
 encoding//WebContent/WEB-INF/jspf/footer.jspf=UTF-8
+<<<<<<< Upstream, based on origin/master
+encoding//src/gr/hua/dit/transfer/InternalService.java=UTF-8
 encoding//src/gr/hua/dit/transfer/Servlet.java=UTF-8
+=======
+encoding//WebContent/WEB-INF/view/informStudents.jsp=UTF-8
+encoding//WebContent/WEB-INF/view/secretary_menu.jsp=UTF-8
+encoding//WebContent/WEB-INF/view/updateSystem.jsp=UTF-8
+>>>>>>> f780a26 new things
 encoding//src/gr/hua/dit/transfer/UserController.java=UTF-8
 encoding//src/gr/hua/dit/transfer/UserService.java=UTF-8

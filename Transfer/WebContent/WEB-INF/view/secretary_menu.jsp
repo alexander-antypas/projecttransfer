@@ -1,12 +1,12 @@
 <div class="content">
-	<h1>Choose task:</h1>
-	</br>
+	<h1>ΕΠΙΛΕΞΤΕ ΜΙΑ ΕΝΕΡΓΕΙΑ :</h1>
+		<br />
 	<form action="updateSystem" method="get">
-		<button>Update the system</button>
+		<button>ΕΝΗΜΕΡΩΣΗ ΠΑΝΕΠΙΣΤΗΜΙΩΝ</button>
 	</form>
-	</br>
-	</br>
+	<br />
+		<br />
 	<form action="informStudents" method="get">
-		<button>Inform the students</button>
+		<button>ΕΝΗΜΕΡΩΣΗ ΦΟΙΤΗΤΩΝ</button>
 	</form>
-</div>
+</div>	

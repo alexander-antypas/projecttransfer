@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-
 @MultipartConfig(maxFileSize = 1699999999)
 @WebServlet("/Servlet")
 public class Servlet extends HttpServlet {
@@ -43,7 +42,7 @@ public class Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-	
+
 	}
 
 	/**
@@ -51,12 +50,11 @@ public class Servlet extends HttpServlet {
 	 *      response)
 	 */
 
-	//@Autowired
-	//private PasswordEncoder passwordEncoder;
+	// @Autowired
+	// private PasswordEncoder passwordEncoder;
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		
 
 		String button = request.getParameter("button");
 
@@ -93,35 +91,20 @@ public class Servlet extends HttpServlet {
 
 		if ("Points".equals(score)) {
 			Admin admin = new Admin();
-			
-			String par1 = request.getParameter("stdsibling");
-			String par2 = request.getParameter("numbersiblings");			
-			String par3 = request.getParameter("income");
-			String par4 = request.getParameter("town");
-			
+			int stdsibling = Integer.parseInt(request.getParameter("stdsibling"));
+			int numbersiblings = Integer.parseInt(request.getParameter("numbersiblings"));
+			int income = Integer.parseInt(request.getParameter("income"));
+			int town = Integer.parseInt(request.getParameter("town"));
+
+			int points = admin.points(stdsibling, numbersiblings, income, town);
+
 			String appid = request.getParameter("appid").toString();
-			
-			if( par1=="" || par2==""|| par3=="" || par4=="") {
-				String message="ΣΥΜΠΛΗΡΩΣΤΕ ΟΛΑ ΤΑ ΚΕΝΑ";
-				
-				HttpSession sess=request.getSession(); 
-				sess.setAttribute("message", message);
-				request.getRequestDispatcher("/points").forward(request, response);
-				
-			} else {
-				int stdsibling = Integer.parseInt(par1);
-				int numbersiblings = Integer.parseInt(par2);
-				int income = Integer.parseInt(par3);
-				int town = Integer.parseInt(par4);
-				
-				int points = admin.points(stdsibling, numbersiblings, income, town);				
-											
-				HttpSession sess=request.getSession(); 
-				sess.setAttribute("points", points);
-				sess.setAttribute("appid", appid);
-				request.getRequestDispatcher("/points").forward(request, response);
-			}
-	
+
+			HttpSession sess = request.getSession();
+
+			sess.setAttribute("points", points);
+			sess.setAttribute("appid", appid);
+			request.getRequestDispatcher("/points").forward(request, response);
 		}
 
 		// ÐÑÏÓÈÇÊÇ ÁÉÔÇÓÇÓ ÓÔÇÍ ÂÁÓÇ
@@ -133,11 +116,11 @@ public class Servlet extends HttpServlet {
 
 			String application_id = request.getParameter("userid").toString();
 			int isChecked = 0;
-			
-			byte[] familyfile=null;
-			byte[] financiallyfile=null;
-			byte[] localityfile=null;
-			
+
+			byte[] familyfile = null;
+			byte[] financiallyfile = null;
+			byte[] localityfile = null;
+
 			try {
 				Part family = request.getPart("family");
 				InputStream is1 = family.getInputStream();
@@ -155,9 +138,10 @@ public class Servlet extends HttpServlet {
 				System.out.print("FILE TOO BIG!");
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST);
 			}
-			
-		    String result= DBApplication.addApplication(date, application_id, isChecked, familyfile, financiallyfile, localityfile);
-			
+
+			String result = DBApplication.addApplication(date, application_id, isChecked, familyfile, financiallyfile,
+					localityfile);
+
 			HttpSession sess = request.getSession();
 			sess.setAttribute("result", result);
 			request.getRequestDispatcher("/application").forward(request, response);
@@ -175,112 +159,60 @@ public class Servlet extends HttpServlet {
 			sess.setAttribute("applications", applications);
 			request.getRequestDispatcher("/user-professor").forward(request, response);
 		}
-		
-		
-		//SEARCH
-		
-		String searchuserid = request.getParameter("searchuserid");
-		
-		if("searchuserid".equals(searchuserid)){
-			String appid = request.getParameter("appid");
-			
-			if (appid=="") {
-				String message = "ΠΛΗΚΤΡΟΛΟΓΕΙΣΤΕ ΚΑΠΟΙΟ ID";
-				
-				HttpSession sess = request.getSession();
-				sess.setAttribute("message", message);
-				request.getRequestDispatcher("/user-professor").forward(request, response);
-			}else {
-				
-				List<Application> applications = DBApplication.showApplications();
-				int b=0;
-				for (int i=0; i<applications.size(); i++) {
-					Application paparitsa= applications.get(i);
-					if (paparitsa.getApplication_id().equals(appid)) {
-						b=1;
-					}
-				}
-				if(b==1) {
-					HttpSession sess = request.getSession();
-					sess.setAttribute("appid", appid);
-					request.getRequestDispatcher("/documents").forward(request, response);
-				}else {
-					String message = "ΤΟ ID ΔΕΝ ΥΠΑΡΧΕΙ, ΠΛΗΚΤΡΟΛΟΓΕΙΣΤΕ ΚΑΠΟΙΟ ΑΛΛΟ";
-					HttpSession sess = request.getSession();
-					sess.setAttribute("message", message);
-					request.getRequestDispatcher("/user-professor").forward(request, response);
-				}
-			}
-		}
-		
-		//OPEN FILES OF APPLICATION WITH USER_ID
-		String familydownload = request.getParameter("family");
-		
-		if("family".equals(familydownload)) {
+
+		// �������� ������������� ������� �� ���� �� ID
+
+		// ÅÌÖÁÍÉÓÇ ÓÕÃÊÅÊÑÉÌÅÍÇÓ ÁÉÔÇÓÇÓ ÌÅ ÂÁÓÇ ÔÏ ID
+
+		String openapp = request.getParameter("openapp");
+
+		if ("Open".equals(openapp)) {
+
 			String appid = request.getParameter("appid").toString();
-			byte[] family = DBApplication.loadFamily(appid);
-			ServletOutputStream os1 = response.getOutputStream();
-			response.setContentType("file/pdf");
-			os1.write(family);
-			os1.close();
+
+			Application app = DBApplication.openApplication(appid);
+
+			HttpSession sess = request.getSession();
+			sess.setAttribute("app", app);
+			request.getRequestDispatcher("/documents").forward(request, response);
+
 		}
-				
-		String financiallydownload = request.getParameter("financially");
-		
-		if("financially".equals(financiallydownload)) {
-			String appid = request.getParameter("appid").toString();
-			
-			byte[] financially = DBApplication.loadFinancially(appid);
-			ServletOutputStream os2 = response.getOutputStream();
-			response.setContentType("file/pdf");
-			os2.write(financially);
-			os2.close();	
-		}
-		
-		String localitydownload = request.getParameter("locality");
-		
-		if("locality".equals(localitydownload)) {
-			String appid = request.getParameter("appid").toString();
-			
-			byte[] locality = DBApplication.loadLocality(appid);
-			ServletOutputStream os3 = response.getOutputStream();
-			response.setContentType("file/pdf");
-			os3.write(locality);
-			os3.close();
-		}	
-		
+
+		//// alekosalekosalekosalekosalekosalekosalekosalekosalekosalekos
+		/// ADD EXTERNAL_USER
 		String add_external = request.getParameter("add_external");
 		if ("add".equals(add_external)) {
-			
-			String username = request.getParameter("username").toString();//USERNAME
-			String surname = request.getParameter("surname").toString();////SURNAME
-			String id = request.getParameter("id").toString();//////////////ID
-			String password = request.getParameter("password").toString();//PASSWORD
-			String uni = request.getParameter("uni").toString();////////////UNIVERSITY
-			int year = Integer.parseInt(request.getParameter("year"));//////YEAR OF BIRTH
-			int age = Integer.parseInt(request.getParameter("age"));////////AGE
-			String email = request.getParameter("email").toString();////////EMAIL
-			int yoe = Integer.parseInt(request.getParameter("yoe"));////////YEAR OF ENROLLMENT
-			
+
+			String username = request.getParameter("username").toString();// USERNAME
+			String surname = request.getParameter("surname").toString();//// SURNAME
+			String id = request.getParameter("id").toString();////////////// ID
+			String password = request.getParameter("password").toString();// PASSWORD
+			String uni = request.getParameter("uni").toString();//////////// UNIVERSITY
+			int year = Integer.parseInt(request.getParameter("year"));////// YEAR OF BIRTH
+			int age = Integer.parseInt(request.getParameter("age"));//////// AGE
+			String email = request.getParameter("email").toString();//////// EMAIL
+			int yoe = Integer.parseInt(request.getParameter("yoe"));//////// YEAR OF ENROLLMENT
+			int pro = 0;//////////////////////////////////////////////////// PROGRESS
+
 			Calendar cal = Calendar.getInstance();
 			int yeartoday = cal.get(Calendar.YEAR);
-			int sem = (yeartoday - yoe) * 2 + 1;////////////////////////////SEMESTER
+			int sem = (yeartoday - yoe) * 2 + 1;//////////////////////////// SEMESTER
 
-			String pw=password;
+			String pw = password;
 			try {
-			pw = new BCryptPasswordEncoder().encode(password);///////////////////ENCODED PASSWORD
-			}catch(NullPointerException e) {
+				pw = new BCryptPasswordEncoder().encode(password);/////////////////// ENCODED PASSWORD
+			} catch (NullPointerException e) {
 				System.out.println("null!!!!");
 				e.printStackTrace();
 			}
-			
-			user user1 = new user(id,pw,1);
-			authorities auth = new authorities(id,"ROLE_USER");
-			External_User user2 = new External_User(id, username, surname, pw, year, age, email, uni, yoe, sem);
-			
+
+			user user1 = new user(id, pw, 1);
+			authorities auth = new authorities(id, "ROLE_USER");
+			External_User user2 = new External_User(id, username, surname, pw, year, age, email, uni, yoe, sem, pro);
+
 			String message = "hello";
 			try {
-				message = UserService.registerNewUserAccount(user1,user2,auth);
+				message = UserService.registerNewUserAccount(user1, user2, auth);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -291,122 +223,326 @@ public class Servlet extends HttpServlet {
 
 		}
 
-		
-		//approved
-		
+		/// ADD INTERNAL_USER
+		String add_internal = request.getParameter("add_internal");
+		if ("add_internal".equals(add_internal)) {
+
+			String username = request.getParameter("username").toString();////// USERNAME
+			String surname = request.getParameter("surname").toString();//////// SURNAME
+			String id = request.getParameter("id").toString();////////////////// ID
+			String password = request.getParameter("password").toString();////// PASSWORD
+			int year = Integer.parseInt(request.getParameter("year"));////////// YEAR OF BIRTH
+			int age = Integer.parseInt(request.getParameter("age"));//////////// AGE
+			String email = request.getParameter("email").toString();//////////// EMAIL
+			String role = request.getParameter("role").toString();////////////// ROLE
+			int yoe = Integer.parseInt(request.getParameter("yoe"));//////////// YEAR OF ENROLLMENT
+			String department = request.getParameter("department").toString();// DEPARTMENT
+
+			String pw = password;
+			try {
+				pw = new BCryptPasswordEncoder().encode(password);/////////////////// ENCODED PASSWORD
+			} catch (NullPointerException e) {
+				System.out.println("null!!!!");
+				e.printStackTrace();
+			}
+
+			user user1 = new user(id, pw, 1);
+			authorities auth = new authorities(id, role);
+			Internal_user user2 = new Internal_user(id, username, surname, pw, year, age, role, yoe, department, email);
+
+			String message = "hello";
+			message = InternalService.registerNewUserAccount(user1, user2, auth);
+
+			HttpSession sess = request.getSession();
+			sess.setAttribute("message", message);
+			request.getRequestDispatcher("/definer").forward(request, response);
+
+		}
+		//// SEARCH INTERNAL_USER
+		String search = request.getParameter("search");
+		if ("search".equals(search)) {
+
+		}
+		///// SHOW INTERNAL_USER
+		String show_users = request.getParameter("show_users");
+		if ("show_users".equals(show_users)) {
+
+		}
+
+		//// alekosalekosalekosalekosalekosalekosalekosalekosalekosalekos
+
+		// ������� �������
+
 		String check = request.getParameter("check");
-		
+		// ������ ������ ���� ����
+		String Updateposi = request.getParameter("Updateposi");
+
 		if ("check".equals(check)) {
-			
+
 			Date date = new Date();
 			int is_Approved = Integer.parseInt(request.getParameter("is_Approved"));
 			int points = Integer.parseInt(request.getParameter("points"));
 			String check_id = request.getParameter("appid");
-			
+
 			String result = DBApplication.check_application(date, is_Approved, points, check_id);
-			DBApplication.updateCheck_id(check_id);
-			
+
 			HttpSession sess = request.getSession();
-			sess.setAttribute("result", result);	
+			sess.setAttribute("result", result);
 			request.getRequestDispatcher("/points").forward(request, response);
 		}
 		
 		String Updateposi = request.getParameter("Updateposi");
 		
 		if ("Submit".equals(Updateposi)) {
-			
-			
-			
-			int informatics =  Integer.parseInt(request.getParameter("informatics"));
-			int health_science =  Integer.parseInt(request.getParameter("health_science"));
-			int home_economics =  Integer.parseInt(request.getParameter("home_economics"));
-			int geography =  Integer.parseInt(request.getParameter("geography"));
-			
-		    DBPositions.addpositions(informatics,health_science,home_economics,geography);
-		    
-		   
+
+			int informatics = Integer.parseInt(request.getParameter("informatics"));
+			int health_science = Integer.parseInt(request.getParameter("health_science"));
+			int home_economics = Integer.parseInt(request.getParameter("home_economics"));
+			int geography = Integer.parseInt(request.getParameter("geography"));
+			String name = "informatics";
+			String name2 = "health_science";
+			String name3 = "home_economics";
+			String name4 = "geography";
+
+			DBPositions.addpositions(informatics, name);
+			DBPositions.addpositions(health_science, name2);
+			DBPositions.addpositions(home_economics, name3);
+			DBPositions.addpositions(geography, name4);
+
 			request.getRequestDispatcher("/secretary_menu").forward(request, response);
-			
-			
+
 		}
-		
-		//�������� �������
+
+		// �������� �������
 		String declined = request.getParameter("declined");
 		if ("declined".equals(declined)) {
-			
+
 			Date date = new Date();
 			int is_Approved = Integer.parseInt(request.getParameter("is_Approved"));
 			int points = Integer.parseInt(request.getParameter("points"));
 			String check_id = request.getParameter("appid");
-			
+
 			String result = DBApplication.check_application(date, is_Approved, points, check_id);
-			
-			DBApplication.updateCheck_id(check_id);
-			
+
 			HttpSession sess = request.getSession();
 			sess.setAttribute("result", result);
 			request.getRequestDispatcher("/user-professor").forward(request, response);
 		}
-	
-		
-		//��������� ������ �������������
-        String SystemSub = request.getParameter("SystemSub");
-		
+
+		// ��������� ������ �������������
+		String SystemSub = request.getParameter("SystemSub");
+
 		if ("Submit".equals(SystemSub)) {
-			
+
 			String checkboxValue1 = request.getParameter("opa");
 			String checkboxValue2 = request.getParameter("ekpa");
 			String checkboxValue3 = request.getParameter("unipi");
-		
+			String checkboxValue4 = request.getParameter("uoa");
+			String checkboxValue5 = request.getParameter("teicrete");
+			String checkboxValue6 = request.getParameter("agean");
+			String checkboxValue7 = request.getParameter("apth");
+			String checkboxValue8 = request.getParameter("uth");
+
 			if (checkboxValue1 != null) {
-				String name= "OPA"; 
-				int status= 1;
-				String sstatus=Integer.toString(status);
-				 DBExternal_Department.Update(name,sstatus);
-				} else{
-					
-					String name= "OPA"; 
-					int status= 0;
-					String sstatus=Integer.toString(status);
-					 DBExternal_Department.Update(name,sstatus);
-				}
-			
-			
-					
+				String name = "2-OPA";
+				int status = 1;
+				String sstatus = Integer.toString(status);
+				DBExternal_Department.Update(name, sstatus);
+			} else {
+
+				String name = "2-OPA";
+				int status = 0;
+				String sstatus = Integer.toString(status);
+				DBExternal_Department.Update(name, sstatus);
+			}
+
 			if (checkboxValue2 != null) {
-				String name= "EKPA"; 
-				int status= 1;
-				String sstatus=Integer.toString(status);
-				 DBExternal_Department.Update(name,sstatus);
-				}else{
-					
-					String name= "EKPA"; 
-					int status= 0;
-					String sstatus=Integer.toString(status);
-					 DBExternal_Department.Update(name,sstatus);
-				}
-			
-			
-			
+				String name = "1-EKPA";
+				int status = 1;
+				String sstatus = Integer.toString(status);
+				DBExternal_Department.Update(name, sstatus);
+			} else {
+
+				String name = "1-EKPA";
+				int status = 0;
+				String sstatus = Integer.toString(status);
+				DBExternal_Department.Update(name, sstatus);
+			}
+
 			if (checkboxValue3 != null) {
-				String name= "UNIPI"; 
-				int status= 1;
-				String sstatus=Integer.toString(status);
-				 DBExternal_Department.Update(name,sstatus);
-				}else{
-					String name= "UNIPI"; 
-					int status= 0;
-					String sstatus=Integer.toString(status);
-					DBExternal_Department.Update(name,sstatus);
-				}
-			
-		   
+				String name = "1-UNIPI";
+				int status = 1;
+				String sstatus = Integer.toString(status);
+				DBExternal_Department.Update(name, sstatus);
+			} else {
+				String name = "1-UNIPI";
+				int status = 0;
+				String sstatus = Integer.toString(status);
+				DBExternal_Department.Update(name, sstatus);
+			}
+
+			if (checkboxValue4 != null) {
+				String name = "4-UOA";
+				int status = 1;
+				String sstatus = Integer.toString(status);
+				DBExternal_Department.Update(name, sstatus);
+			} else {
+
+				String name = "4-UOA";
+				int status = 0;
+				String sstatus = Integer.toString(status);
+				DBExternal_Department.Update(name, sstatus);
+			}
+			if (checkboxValue5 != null) {
+				String name = "2-TEICRETE";
+				int status = 1;
+				String sstatus = Integer.toString(status);
+				DBExternal_Department.Update(name, sstatus);
+			} else {
+
+				String name = "2-TEICRETE";
+				int status = 0;
+				String sstatus = Integer.toString(status);
+				DBExternal_Department.Update(name, sstatus);
+			}
+			if (checkboxValue6 != null) {
+				String name = "3-AGEAN";
+				int status = 1;
+				String sstatus = Integer.toString(status);
+				DBExternal_Department.Update(name, sstatus);
+			} else {
+
+				String name = "3-AGEAN";
+				int status = 0;
+				String sstatus = Integer.toString(status);
+				DBExternal_Department.Update(name, sstatus);
+			}
+			if (checkboxValue7 != null) {
+				String name = "1-APTH";
+				int status = 1;
+				String sstatus = Integer.toString(status);
+				DBExternal_Department.Update(name, sstatus);
+			} else {
+
+				String name = "1-APTH";
+				int status = 0;
+				String sstatus = Integer.toString(status);
+				DBExternal_Department.Update(name, sstatus);
+			}
+
+			if (checkboxValue8 != null) {
+				String name = "1-UTH";
+				int status = 1;
+				String sstatus = Integer.toString(status);
+				DBExternal_Department.Update(name, sstatus);
+			} else {
+
+				String name = "1-UTH";
+				int status = 0;
+				String sstatus = Integer.toString(status);
+				DBExternal_Department.Update(name, sstatus);
+			}
+
 			request.getRequestDispatcher("/Update_position").forward(request, response);
-			
-			
+
 		}
-		
-		
-		
+
+		String SelectS = request.getParameter("SelectS");
+
+		if ("SelectS".equals(SelectS)) {
+
+			List<Check_Application> usersID = DBPositions.showAprovedStudents();
+
+			HttpSession sess = request.getSession();
+			sess.setAttribute("usersID", usersID);
+			request.getRequestDispatcher("/aprovedStudents").forward(request, response);
+		}
+
+		String match = request.getParameter("match");
+
+		if ("match".equals(match)) {
+
+			for (int j = 0; j <= 3; j++) {
+				if (j == 0) {
+					String starts = "it";// βαζω το καταλληλο για καθε τμημα
+
+					List<Check_Application> usersIDDEP = DBPositions.hasDep(starts); // επιστεφει τα αντικειμενα τα
+																						// οποια εχοθν
+																						// aproved 1 kai am pou xekinaei
+																						// me it
+					String dep = "informatics";
+					int Num_av = DBPositions.posDep(dep); // αριθμος θεσεων
+					int count = usersIDDEP.size();
+					int i = 0;
+					while (i < Num_av && count != 0) {
+						String cur_student = usersIDDEP.get(i).getCheck_id();
+						DBPositions.Update_Progg(cur_student);
+
+						count--;
+						i++;
+					}
+				} else if (j == 1) {
+					String starts = "hs";// βαζω το καταλληλο για καθε τμημα
+
+					List<Check_Application> usersIDDEP = DBPositions.hasDep(starts); // επιστεφει τα αντικειμενα τα
+																						// οποια εχοθν
+																						// aproved 1 kai am pou xekinaei
+																						// me it
+					String dep = "health_science";
+					int Num_av = DBPositions.posDep(dep); // αριθμος θεσεων
+					int count = usersIDDEP.size();
+					int i = 0;
+					while (i < Num_av && count != 0) {
+						String cur_student = usersIDDEP.get(i).getCheck_id();
+						DBPositions.Update_Progg(cur_student);
+
+						count--;
+						i++;
+					}
+				} else if (j == 2) {
+					String starts = "ge";// βαζω το καταλληλο για καθε τμημα
+
+					List<Check_Application> usersIDDEP = DBPositions.hasDep(starts); // επιστεφει τα αντικειμενα τα
+																						// οποια εχοθν
+																						// aproved 1 kai am pou xekinaei
+																						// me it
+					String dep = "geography";
+					int Num_av = DBPositions.posDep(dep); // αριθμος θεσεων
+					int count = usersIDDEP.size();
+					int i = 0;
+					while (i < Num_av && count != 0) {
+						String cur_student = usersIDDEP.get(i).getCheck_id();
+						DBPositions.Update_Progg(cur_student);
+
+						count--;
+						i++;
+
+					}
+				} else {
+					String starts = "he";// βαζω το καταλληλο για καθε τμημα
+
+					List<Check_Application> usersIDDEP = DBPositions.hasDep(starts); // επιστεφει τα αντικειμενα τα
+																						// οποια εχοθν
+																						// aproved 1 kai am pou xekinaei
+																						// me it
+					String dep = "home_economics";
+					int Num_av = DBPositions.posDep(dep); // αριθμος θεσεων
+					int count = usersIDDEP.size();
+					int i = 0;
+					while (i < Num_av && count != 0) {
+						String cur_student = usersIDDEP.get(i).getCheck_id();
+						DBPositions.Update_Progg(cur_student);
+
+						count--;
+						i++;
+					}
+				}
+				System.out.println("Done Updating!");
+
+			}
+			DBPositions.setAsDeclined(); //enhmerwnei autous pou den perasan
+			request.getRequestDispatcher("/secretary_menu").forward(request, response);
+		}
+
 	}
 }
