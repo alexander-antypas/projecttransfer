@@ -4,9 +4,9 @@
 	
 	<div class=update>
 	<form action="Servlet" method="post" enctype="multipart/form-data" >
-  Infomatics:
+  Informatics:
   <input type="number" name="informatics"><br>
-  Dietary:
+  Health Science:
   <input type="number" name="health_science"><br>
   Geography:
   <input type="number" name="geography"><br>
