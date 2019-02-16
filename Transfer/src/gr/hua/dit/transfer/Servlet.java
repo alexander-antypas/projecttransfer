@@ -2,8 +2,6 @@ package gr.hua.dit.transfer;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -11,8 +9,6 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import gr.hua.dit.classes.Application;
-import gr.hua.dit.classes.External_Department;
-import gr.hua.dit.classes.External_User;
 import gr.hua.dit.classes.INTERNAL_USER;
 import gr.hua.dit.classes.authorities;
 import gr.hua.dit.classes.user;
@@ -292,50 +288,7 @@ public class Servlet extends HttpServlet {
 		
 		
 	//// alekosalekosalekosalekosalekosalekosalekosalekosalekosalekos
-			/// ADD EXTERNAL_USER
 			String message_for_admin = "ERROR";
-			String message_for_external = "ERROR";
-			String add_external = request.getParameter("add_external");
-			if ("add".equals(add_external)) {
-
-				String username = request.getParameter("username").toString();// USERNAME
-				String surname = request.getParameter("surname").toString();//// SURNAME
-				String id = request.getParameter("id").toString();////////////// ID
-				String password = request.getParameter("password").toString();// PASSWORD
-				String uni = request.getParameter("uni").toString();//////////// UNIVERSITY
-				int year = Integer.parseInt(request.getParameter("year"));////// YEAR OF BIRTH
-				int age = Integer.parseInt(request.getParameter("age"));//////// AGE
-				String email = request.getParameter("email").toString();//////// EMAIL
-				int yoe = Integer.parseInt(request.getParameter("yoe"));//////// YEAR OF ENROLLMENT
-				int pro = 0;//////////////////////////////////////////////////// PROGRESS
-
-				Calendar cal = Calendar.getInstance();
-				int yeartoday = cal.get(Calendar.YEAR);
-				int sem = (yeartoday - yoe) * 2 + 1;//////////////////////////// SEMESTER
-
-				String pw = password;
-				try {
-					pw = new BCryptPasswordEncoder().encode(password);/////////////////// ENCODED PASSWORD
-				} catch (NullPointerException e) {
-					System.out.println("null!!!!");
-					e.printStackTrace();
-				}
-
-				user user1 = new user(id, pw, 1);
-				authorities auth = new authorities(id, "ROLE_USER");
-				External_User user2 = new External_User(id, username, surname, pw, year, age, email, uni, yoe, sem, pro);
-
-				try {
-					message_for_external = UserService.registerNewUserAccount(user1, user2, auth);
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-
-				HttpSession sess = request.getSession();
-				sess.setAttribute("message_for_external", message_for_external);
-				request.getRequestDispatcher("/signin").forward(request, response);
-
-			}
 
 			/// ADD INTERNAL_USER
 			String add_internal = request.getParameter("add_internal");
@@ -431,29 +384,6 @@ public class Servlet extends HttpServlet {
 				HttpSession sess = request.getSession();
 				sess.setAttribute("message_for_admin", message_for_admin);
 				request.getRequestDispatcher("/definer").forward(request, response);
-			}
-			
-			///CHECK APP
-			String check_app = request.getParameter("check_app");
-			if ("check_app".equals(check_app)) {
-				
-				String id = request.getParameter("id").toString();//ID
-				
-				String message = UserService.check(id);
-
-				HttpSession sess = request.getSession();
-				sess.setAttribute("message", message);
-				request.getRequestDispatcher("/info_user").forward(request, response);
-			}
-			////SHOW EXTERNAL DEPARTMENTS
-			String show_dep = request.getParameter("show_dep");
-			if ("show_dep".equals(show_dep)) {
-				List<External_Department> departments = UserService.showDepartments();
-				
-				HttpSession sess = request.getSession();
-				sess.setAttribute("departments", departments);
-				request.getRequestDispatcher("/SignUp_External").forward(request, response);
-				
 			}
 			
 			String delete = request.getParameter("delete");
