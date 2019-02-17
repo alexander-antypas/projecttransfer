@@ -41,7 +41,7 @@
 		<br />
 		<label for="year">ΕΤΟΣ ΓΕΝΝΗΣΗΣ</label>
 		<br />
-		<input type="number" id="year" name="year" min="1980" max="2019" placeholder="ΕΤΟΣ ΓΕΝΝΗΣΗΣ" required>
+		<input type="number" id="year" name="year" min="1930" max="2019" placeholder="ΕΤΟΣ ΓΕΝΝΗΣΗΣ" required>
 		<br /> 
 		<label for="age">ΗΛΙΚΙΑ</label> 
 		<br />
