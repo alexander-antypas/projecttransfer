@@ -2,20 +2,17 @@
 	pageEncoding="UTF-8"%>
 
 	
-	<div class=update>
+<div class=update>
 	<form action="Servlet" method="post" enctype="multipart/form-data" >
-  Informatics:
-  <input type="number" name="informatics"><br>
-  Health Science:
-  <input type="number" name="health_science"><br>
-  Geography:
-  <input type="number" name="geography"><br>
-  Home economics
-  <input type="number" name="home_economics"><br>
-  
-  <input type="submit" name="Updateposi" value="Submit">
+	  Πληροφορική και Τηλεματική:
+	  <input type="number" name="informatics"><br>
+	  Διαιτολογία και Διατροφολογία:
+	  <input type="number" name="health_science"><br>
+	  Γεωγραφία:
+	  <input type="number" name="geography"><br>
+	  Οικιακή Οικονομία:
+	  <input type="number" name="home_economics"><br>
+	  
+	  <button type="submit" name="Updateposi" value="Submit">ΥΠΟΒΟΛΗ</button>
     </form>
-	
-	
-
-	</div>
+</div>

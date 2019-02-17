@@ -560,7 +560,7 @@ public class Servlet extends HttpServlet {
 					String starts = "it";// βαζω το καταλληλο για καθε τμημα
 
 					List<Check_Application> usersIDDEP = DBPositions.hasDep(starts); // επιστεφει τα αντικειμενα τα
-																						// οποια εχοθν
+																						// οποια εχουν
 																						// aproved 1 kai am pou xekinaei
 																						// me it
 					String dep = "informatics";

@@ -6,8 +6,6 @@
 
 
 <div class=list>
-	
-	
 	<form action="Servlet" method="POST">
 		
 		<div>

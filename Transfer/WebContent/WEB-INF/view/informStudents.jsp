@@ -5,8 +5,8 @@
 		<button>ΠΙΣΩ</button>
 	</form>
 
-<div class="content">
-	<h1>Μαθητες με εγγεκριμενες αιτησεις ταξινομημενοι βαση των ποντων:</h1>
+<div id="contentup">
+	<h3>Μαθητές με εγγεκριμένες αιτήσεις ταξινομημένοι βάση των πόντων που συγκέντρωσαν:</h3>
 	<form action="Servlet" method="POST">
 		
 		<button type="submit" name='SelectS' value="SelectS"> ΕΜΦΑΝΙΣΗ ΕΓΚΕΚΡΙΜΕΝΩΝ ΜΑΘΗΤΩΝ </button>
