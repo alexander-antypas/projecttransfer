@@ -22,8 +22,4 @@
 		<input type="submit" value="ΣΥΝΔΕΣΗ">
 		<br />
 	</form:form>
-	<h3>ΔΕΝ ΕΧΕΙΣ ΛΟΓΑΡΙΑΣΜΟ?</h3>
-	<form action="Servlet" method="post">
-	<button name="show_dep" type="submit" value="show_dep">ΕΓΓΡΑΦΗ ΣΤΟ ΣΥΣΤΗΜΑ</button>
-	</form>
 </div>

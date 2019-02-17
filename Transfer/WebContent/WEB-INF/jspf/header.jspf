@@ -11,9 +11,7 @@
 <style>
 body {
 	font-family: Arial;
-	background: #666
-		url("https://66.media.tumblr.com/675fbce53a60df837b3572cf120c01c8/tumblr_pjh1re84Ox1rrq8alo1_250.jpg?fbclid=IwAR2rBZb_dxOsTaahmEnxjHZqb1UW8_vx8w4JVt_JvI9UpGyOfWtsT7vXRy0")
-		repeat;
+	background: #007399;
 	background-attachment: fixed;
 	color: #292929;
 }
@@ -26,7 +24,7 @@ body {
 #header {
 	border: 4px solid #eee;
 	border-radius: 5px;
-	box-shadow: 2px 2px 3px #666;
+	background: #DEB887;
 }
 
 header h1 {
@@ -39,9 +37,7 @@ header h1 {
 	margin-left: auto;
 	margin-right: auto;
 	width: 20%;
-	display
-	=
-	block;
+	display:block;
 }
 
 #content2 {
@@ -64,10 +60,6 @@ header h1 {
 	display: none;
 }
 
-#title:hover {
-	color: #292929;
-}
-
 a:visited {
 	color: white;
 	text-decoration: none;
@@ -87,7 +79,7 @@ a:active {
 	padding: 10px;
 	border: 3px solid #eee;
 	border-radius: 5px;
-	box-shadow: 2px 2px 3px #666;
+	background: #DEB887;
 	display: flex;
 }
 
@@ -96,9 +88,7 @@ a:active {
 	margin-left: auto;
 	margin-right: auto;
 	width: 20%;
-	display
-	=
-	block;
+	display: block;
 }
 
 #contentup {
@@ -106,9 +96,7 @@ a:active {
 	margin-left: auto;
 	margin-right: auto;
 	width: 50%;
-	display
-	=
-	block;
+	display: block;
 }
 
 ul {
@@ -182,8 +170,7 @@ footer {
 }
 
 #top {
-	background: #666
-		url("https://www.oikonomologos.gr/wp-content/uploads/2016/11/xarokopeio-panepistimio-oikonomologos-prosopsi.jpg");
+	background: #666;
 	background-attachment: fixed;
 	background-size: contain;
 	border-radius: 5%;
@@ -330,7 +317,7 @@ footer {
 	<div id="outer">
 		<div id="top">
 			<!-- ΤΙΤΛΟΣ -->
-			<div id="header" style="background-color: rgba(0, 0, 0, 0.5);">
+			<div id="header">
 				<header>
 					<br />
 					<center>
@@ -340,8 +327,7 @@ footer {
 					</center>
 					<div class="bar">
 						<center>
-							<br /> <a href="definer">Αρχική</a> <a href="about">Σχετικά</a> <a
-								href="help">Βοήθεια</a> <a href="contact">Επικοινωνία</a>
+							<br /> <a href="definer">Αρχική</a>
 							<sec:authorize access="isAuthenticated()">
 							    <a href="<c:url value="/logout" />">Αποσύνδεση</a>
 								<sec:authentication property="principal.username" />
@@ -351,4 +337,4 @@ footer {
 				</header>
 			</div>
 		</div>
-		<div id="content" style="background-color: rgba(0, 0, 0, 0.5);">
+		<div id="content">
