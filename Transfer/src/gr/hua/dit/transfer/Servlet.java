@@ -252,7 +252,7 @@ public class Servlet extends HttpServlet {
 		String check = request.getParameter("check");
 
 		if ("check".equals(check)) {
-
+			
 			Date date = new Date();
 			int is_Approved = Integer.parseInt(request.getParameter("is_Approved"));
 			int points = Integer.parseInt(request.getParameter("points"));
@@ -260,6 +260,7 @@ public class Servlet extends HttpServlet {
 
 			String result = DBApplication.check_application(date, is_Approved, points, check_id);
 			DBApplication.updateCheck_id(check_id);
+			DBApplication.updateApp_progress(check_id, is_Approved);
 
 			HttpSession sess = request.getSession();
 			sess.setAttribute("result", result);
@@ -276,8 +277,8 @@ public class Servlet extends HttpServlet {
 			String check_id = request.getParameter("appid");
 			
 			String result = DBApplication.check_application(date, is_Approved, points, check_id);
-			
 			DBApplication.updateCheck_id(check_id);
+			DBApplication.updateApp_progress(check_id, is_Approved);
 			
 			HttpSession sess = request.getSession();
 			sess.setAttribute("result", result);
@@ -577,7 +578,7 @@ public class Servlet extends HttpServlet {
 					String starts = "hs";// βαζω το καταλληλο για καθε τμημα
 
 					List<Check_Application> usersIDDEP = DBPositions.hasDep(starts); // επιστεφει τα αντικειμενα τα
-																						// οποια εχοθν
+																						// οποια εχουν
 																						// aproved 1 kai am pou xekinaei
 																						// me it
 					String dep = "health_science";
@@ -595,7 +596,7 @@ public class Servlet extends HttpServlet {
 					String starts = "ge";// βαζω το καταλληλο για καθε τμημα
 
 					List<Check_Application> usersIDDEP = DBPositions.hasDep(starts); // επιστεφει τα αντικειμενα τα
-																						// οποια εχοθν
+																						// οποια εχουν
 																						// aproved 1 kai am pou xekinaei
 																						// me it
 					String dep = "geography";
@@ -614,7 +615,7 @@ public class Servlet extends HttpServlet {
 					String starts = "he";// βαζω το καταλληλο για καθε τμημα
 
 					List<Check_Application> usersIDDEP = DBPositions.hasDep(starts); // επιστεφει τα αντικειμενα τα
-																						// οποια εχοθν
+																						// οποια εχοuν
 																						// aproved 1 kai am pou xekinaei
 																						// me it
 					String dep = "home_economics";
