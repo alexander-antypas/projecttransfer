@@ -19,19 +19,17 @@
 	<form action="Servlet" method="POST">
 		<button type="submit" name="viewall" value="Repository">ΑΠΟΘΕΤΗΡΙΟ ΑΙΤΗΣΕΩΝ</button>
 		<br/><br/>
-		<div>
-			<center>
-				<br/>
-				<table border="1">
-				<tr>
-					<th> User_id </th>
-				</tr>
-				</table>
-				<c:forEach items="${applications}" var="application">
-					${application.application_id} <br/>
-				</c:forEach>
-				<br/>
-			<center>
+		<div id=contentup>
+			<br/>
+			<table border="1">
+			<tr>
+				<th> User_id </th>
+			</tr>
+			</table>
+			<c:forEach items="${applications}" var="application">
+				${application.application_id} <br/>
+			</c:forEach>
+			<br/>
 		</div>
 		
 	</form>

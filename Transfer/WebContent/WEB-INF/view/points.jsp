@@ -9,7 +9,7 @@
 <div class=list> 
 	${param.appid} <br/>
 	<form action="Servlet" method="post"> 
-		<h> Συμπλήρωσε τη φόρμα με τα δεδομένα που ζητούνται: </h>
+		<p> Συμπλήρωσε τη φόρμα με τα δεδομένα που ζητούνται: </p>
 		<br/><br/><br/><br/>
 		Έχει ο φοιτητής αδέρφο/αδερφή που σπουδάζει σε άλλη πόλη; (ΝΑΙ-1, ΟΧΙ-0)
 		<input type="number" name="stdsibling">
