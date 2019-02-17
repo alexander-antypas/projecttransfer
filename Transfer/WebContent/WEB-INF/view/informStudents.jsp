@@ -11,7 +11,6 @@
 		
 		<button type="submit" name='SelectS' value="SelectS"> ΕΜΦΑΝΙΣΗ ΕΓΚΕΚΡΙΜΕΝΩΝ ΜΑΘΗΤΩΝ </button>
 	</form>
-	</br>
-	</br>
-	
+	<br />
+	<br />
 </div>
