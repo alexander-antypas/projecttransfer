@@ -10,7 +10,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import gr.hua.dit.classes.Application;
-import gr.hua.dit.classes.External_User;
 
 public class DBApplication {
 
