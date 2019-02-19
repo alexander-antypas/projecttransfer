@@ -260,7 +260,6 @@ public class Servlet extends HttpServlet {
 
 			String result = DBApplication.check_application(date, is_Approved, points, check_id);
 			DBApplication.updateCheck_id(check_id);
-			DBApplication.updateApp_progress(check_id, is_Approved);
 
 			HttpSession sess = request.getSession();
 			sess.setAttribute("result", result);
@@ -278,7 +277,6 @@ public class Servlet extends HttpServlet {
 			
 			String result = DBApplication.check_application(date, is_Approved, points, check_id);
 			DBApplication.updateCheck_id(check_id);
-			DBApplication.updateApp_progress(check_id, is_Approved);
 			
 			HttpSession sess = request.getSession();
 			sess.setAttribute("result", result);

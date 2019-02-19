@@ -216,48 +216,5 @@ public class DBApplication {
 					factory.close();
 				}
 	}
-	
-	public static void updateApp_progress (String check_id, int is_Approved) {
-		// create session factory
-		SessionFactory factory = new Configuration()
-				.configure("hibernate.cfg.xml")
-				.addAnnotatedClass(External_User.class)
-				.buildSessionFactory();
-		
-		// create session
-		Session session = factory.getCurrentSession();
-		try {
-			
-			session.beginTransaction();
-			
-			if (is_Approved==1) {
-				//approved
-				String U="UPDATE EXTERNAL_USER SET app_progress =1 " + "WHERE id  = :check_id " ;
-	            Query query= session.createQuery(U);
-	            query.setParameter("id",check_id);
-	            int result =query.executeUpdate();
-	            System.out.println("Rows affected: "+result);
-	            
-	            // commit transaction
-	            session.getTransaction().commit();
-			}else if (is_Approved==0){
-				//declined
-				String U="UPDATE EXTERNAL_USER SET app_progress =2 " + "WHERE id  = :check_id " ;
-	            Query query= session.createQuery(U);
-	            query.setParameter("id",check_id);
-	            int result =query.executeUpdate();
-	            System.out.println("Rows affected: "+result);
-	            
-	            // commit transaction
-	            session.getTransaction().commit();
-			}
-			
-
-		} finally {
-			factory.close();
-		}
-		
-		
-	}
 		
 }
