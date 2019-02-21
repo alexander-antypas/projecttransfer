@@ -2,15 +2,15 @@ package gr.hua.dit.transfer;
 
 public class Admin {
 	
-	//екецвос циа тгм епаяйеиа тым дийаиокоцгтийым еццяажым
+	//н∙н⌡н∙н⌠н╖н÷нё н▒н║н≥н≤н°н÷н╔ н▒н≥н╓н≈нён∙н╘н²
 
 	public String documents (int number) {
 		String decision;		
 		if (number<3) {
-			decision="амепаяйгс аяихлос еццяажым";
+			decision="н▒н²н∙н═н▒н║н н≈нё н▒н║н≥н≤н°н÷нё н■н≥н н▒н≥н÷н⌡н÷н⌠н≈н╓н≥н н╘н²";
 			return decision;
 		} else if (number==3) {
-			decision="епаяйгс аяихлос еццяажым";
+			decision="н∙н═н▒н║н н≈нё н▒н║н≥н≤н°н÷нё н■н≥н н▒н≥н÷н⌡н÷н⌠н≈н╓н≥н н╘н²";
 			return decision;
 		} else {
 			decision="INVALID INPUT";
@@ -19,7 +19,7 @@ public class Admin {
 		
 	}
 	
-	//йаталетягсг помтым жоитгтг
+	//н н▒н╓н▒н°н∙н╓н║н≈нён≈ н═н÷н²н╓н╘н² н°н∙ н▓н▒нён≈ н╓н▒ н н║н≥н╓н≈н║н≥н▒
 	
 	public int points (int stdsibling, int numbersiblings, int income, int town) {
 		
